@@ -53,7 +53,7 @@ export default function Header({ back, next, state_progress }: Header) {
         {state_progress !== undefined
           ? states.map(({ state, href }, i) => {
               const visitedState = i <= state_progress;
-              const link = visitedState ? {href} : {}
+              const link = visitedState && i !== state_progress ? {href} : {}
               return (
                 <a
                   key={i}
