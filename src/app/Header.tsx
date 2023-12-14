@@ -7,7 +7,7 @@ const stateConstructor = (state: string, href: string) => {
 const states = [
   stateConstructor('Date & Time', 'datetime'),
   stateConstructor('Filters', 'filters'),
-  stateConstructor('Room', 'room'),
+  stateConstructor('Rooms', 'rooms'),
   stateConstructor('Confirm', 'confirm'),
 ];
 
