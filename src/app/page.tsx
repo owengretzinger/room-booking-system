@@ -1,9 +1,10 @@
-import Image from 'next/image'
+import Header from './Header';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      
-    </main>
-  )
+    <>
+      <Header back={undefined} next={undefined} state_progress={undefined}></Header>
+      <main className="flex min-h-screen flex-col items-center justify-between"></main>
+    </>
+  );
 }
