@@ -7,32 +7,35 @@ const states = [
   'Confirm Booking',
 ];
 
+/*
+ * Header for pages
+ */
 export default function Header({ back, next, state_progress }) {
   return (
-    <header className="box-border w-full flex items-center justify-center flex-col p-5 gap-5 select-none flex-wrap">
-      <div className="flex-auto flex w-full text-red-925 gap-5">
+    <header className="w-full flex items-center justify-center flex-col p-5 gap-5 select-none flex-wrap">
+      <div className="flex-auto flex w-full text-red-925 gap-1 sm:gap-3 lg:gap-5">
         {back ? (
-          <button className="flex items-center justify-center text-xl border-solid border-4 rounded-xl py-4 px-16 border-red-925">
+          <button className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl border-solid border-4 rounded-xl border-red-925 flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem]">
             Back
           </button>
         ) : null}
-        <h1 className="flex-auto text-center text-4xl border-solid border-4 rounded-xl p-4 border-red-925">
+        <h1 className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red-925 flex-auto h-10 md:h-12 lg:h-16">
           McMaster Room Booking
         </h1>
         {next ? (
-          <button className="flex items-center justify-center text-xl text-white bg-amber-350 rounded-xl py-4 px-16">
+          <button className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-amber-350 rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem]">
             Next
           </button>
         ) : null}
       </div>
-      <nav className="flex w-3/4 h-16">
+      <nav className="flex w-full lg:w-3/4 h-10 lg:h-16">
         {state_progress
           ? states.map((state, i) => {
               const visitedState = i <= state_progress;
               return (
                 <button
                   key={i}
-                  className={`bg-red-925 disabled:bg-neutral-300 text-white box-border flex-auto w-24 ${
+                  className={`bg-red-925 disabled:bg-neutral-300 text-white text-[0.5rem] sm:text-xs lg:text-base box-border flex-auto w-24 ${
                     i === 0
                       ? styles['first-arrow']
                       : i === states.length - 1
