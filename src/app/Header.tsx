@@ -27,7 +27,7 @@ export default function Header({ back, next, state_progress }: Header) {
   return (
     <header className="w-full flex items-center justify-center flex-col p-5 gap-5 select-none flex-wrap">
       {/* Back, Title, Next */}
-      <div className="flex-auto flex w-full text-red-925 gap-1 sm:gap-3 lg:gap-5">
+      <nav className="flex-auto flex w-full text-red-925 gap-1 sm:gap-3 lg:gap-5">
         {back !== undefined ? (
           <a
             href={back}
@@ -36,9 +36,9 @@ export default function Header({ back, next, state_progress }: Header) {
             Back
           </a>
         ) : null}
-        <h1 className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red-925 flex-auto h-10 md:h-12 lg:h-16">
+        <a href='/' className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red-925 flex-auto h-10 md:h-12 lg:h-16">
           McMaster Room Booking
-        </h1>
+        </a>
         {next !== undefined ? (
           <a
             href={next}
@@ -47,7 +47,7 @@ export default function Header({ back, next, state_progress }: Header) {
             Next
           </a>
         ) : null}
-      </div>
+      </nav>
       {/* Navigation Bar */}
       <nav className="flex w-full lg:w-3/4 h-10 lg:h-16">
         {state_progress !== undefined
