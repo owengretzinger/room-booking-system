@@ -11,7 +11,7 @@ export default function Home() {
         next={undefined}
         state_progress={undefined}
       ></Header>
-      <main className="flex flex-col items-center justify-center gap-5 min-h-full">
+      <main className="flex flex-col items-center justify-center gap-5 min-h-full -translate-y-44">
         <a href="datetime" className={`${optionClasses} bg-amber-350`}>
           Start New Booking
         </a>
