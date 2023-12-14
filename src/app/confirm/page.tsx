@@ -1,6 +1,6 @@
 import Header from '../Header';
 
-export default function Home() {
+export default function Confirm() {
   return (
     <>
       <Header back={'rooms'} next={undefined} state_progress={3}></Header>

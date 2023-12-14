@@ -1,6 +1,6 @@
 import Header from '../Header';
 
-export default function Home() {
+export default function Rooms() {
   return (
     <>
       <Header back={'filters'} next={'login'} state_progress={2}></Header>

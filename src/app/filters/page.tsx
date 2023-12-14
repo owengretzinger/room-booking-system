@@ -1,6 +1,6 @@
 import Header from '../Header';
 
-export default function Home() {
+export default function Filters() {
   return (
     <>
       <Header back={'datetime'} next={'rooms'} state_progress={1}></Header>
