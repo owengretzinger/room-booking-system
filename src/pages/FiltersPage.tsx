@@ -1,4 +1,4 @@
-import FilterButtons from '../../components/FilterButtons';
+import FilterButtons from '../components/FilterButtons';
 import Image from 'next/image';
 
 export default function FiltersPage() {

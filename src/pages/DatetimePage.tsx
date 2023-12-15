@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import '../styles/day-picker.css';
+import '../styles/datetime.module.css';
 
 export default function DatetimePage() {
   const today = new Date();
