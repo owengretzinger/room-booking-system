@@ -1,6 +1,10 @@
 import RoomCard from '@/components/RoomCard';
 
-export default function RoomsPage() {
+interface RoomsPage {
+  setCurrentPage: Function;
+}
+
+export default function RoomsPage({ setCurrentPage }: RoomsPage) {
   return (
     <>
       <main className="flex flex-col items-center justify-between px-2">

@@ -12,8 +12,9 @@ const states = [
 ];
 
 interface Header {
-  back: string | undefined;
-  next: string | undefined;
+  back: Function | undefined;
+  next: Function | undefined;
+  reset: Function;
   state_progress: number | undefined;
 }
 
@@ -23,29 +24,32 @@ interface Header {
  * next: the page the next button should take you to. Leave undefined to hide.
  * state_progress: the current room booking state from 0 to 3. Leave undefined to hide.
  */
-export default function Header({ back, next, state_progress }: Header) {
+export default function Header({ back, next, reset, state_progress }: Header) {
   return (
     <header className="w-full flex items-center justify-center flex-col p-5 gap-5 select-none flex-wrap">
       {/* Back, Title, Next */}
       <nav className="flex-auto flex w-full text-red gap-1 sm:gap-3 lg:gap-5">
         {back !== undefined ? (
-          <a
-            href={back}
+          <button
+            onClick={() => back}
             className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl border-solid border-4 rounded-xl border-red flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem]"
           >
             Back
-          </a>
+          </button>
         ) : null}
-        <a href='/' className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red flex-auto h-10 md:h-12 lg:h-16">
+        <button
+          onClick={() => reset}
+          className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red flex-auto h-10 md:h-12 lg:h-16"
+        >
           McMaster Room Booking
-        </a>
+        </button>
         {next !== undefined ? (
-          <a
-            href={next}
+          <button
+            onClick={() => next}
             className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-amber-350 rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem]"
           >
             Next
-          </a>
+          </button>
         ) : null}
       </nav>
       {/* Navigation Bar */}
@@ -53,7 +57,7 @@ export default function Header({ back, next, state_progress }: Header) {
         {state_progress !== undefined
           ? states.map(({ state, href }, i) => {
               const visitedState = i <= state_progress;
-              const link = visitedState && i !== state_progress ? {href} : {}
+              const link = visitedState && i !== state_progress ? { href } : {};
               return (
                 <a
                   key={i}

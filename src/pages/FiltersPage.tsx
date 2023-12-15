@@ -1,7 +1,11 @@
 import FilterButtons from '../components/FilterButtons';
 import Image from 'next/image';
 
-export default function FiltersPage() {
+interface FiltersPage {
+  setCurrentPage: Function;
+}
+
+export default function FiltersPage({ setCurrentPage }: FiltersPage) {
   // Capacity Options
   const capacity = [
     { key: 0, name: 'Any' },
