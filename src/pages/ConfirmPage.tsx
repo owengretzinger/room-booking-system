@@ -1,4 +1,8 @@
-export default function ConfirmPage() {
+interface ConfirmPage {
+  setCurrentPage: Function;
+}
+
+export default function ConfirmPage({ setCurrentPage }: ConfirmPage) {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-between"></main>
