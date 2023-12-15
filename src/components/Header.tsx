@@ -1,4 +1,4 @@
-import styles from './header.module.css';
+import styles from '../styles/header.module.css';
 
 const stateConstructor = (state: string, href: string) => {
   return { state, href };
