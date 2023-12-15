@@ -11,34 +11,62 @@ import RoomsPage from '../pages/RoomsPage';
 import { useState } from 'react';
 
 export default function Home() {
-  const [back, setBack] = useState(undefined);
-  const [next, setNext] = useState(undefined);
-  const [stateProgress, setStateProgress] = useState(undefined);
   const [currentPage, setCurrentPage] = useState('main');
 
-  const headerProps = { back, next, state_progress: stateProgress };
+  let next = undefined,
+    back = undefined,
+    stateProgress = undefined,
+    renderedPage = null;
+
+  switch (currentPage) {
+    case 'main':
+      renderedPage = <MainPage setCurrentPage={setCurrentPage}></MainPage>;
+      break;
+    case 'datetime':
+      back = () => setCurrentPage('main');
+      next = () => setCurrentPage('filters');
+      stateProgress = 0;
+      renderedPage = <DatetimePage setCurrentPage={setCurrentPage}></DatetimePage>;
+      break;
+    case 'filters':
+      back = () => setCurrentPage('datetime');
+      next = () => setCurrentPage('filters');
+      stateProgress = 1;
+      renderedPage = <FiltersPage setCurrentPage={setCurrentPage}></FiltersPage>;
+      break;
+    case 'rooms':
+      back = () => setCurrentPage('rooms');
+      next = () => setCurrentPage('filters');
+      stateProgress = 2;
+      renderedPage = <RoomsPage setCurrentPage={setCurrentPage}></RoomsPage>;
+      break;
+    case 'confirm':
+      back = () => setCurrentPage('rooms');
+      stateProgress = 3;
+      renderedPage = <ConfirmPage setCurrentPage={setCurrentPage}></ConfirmPage>;
+      break;
+    case 'cancel':
+      back = () => setCurrentPage('main');
+      renderedPage = <CancelPage setCurrentPage={setCurrentPage}></CancelPage>;
+      break;
+    default:
+      break;
+  }
+
+  const headerProps = {
+    back,
+    next,
+    state_progress: stateProgress,
+    reset: () => {
+      setCurrentPage('main');
+      // reset filters, datetime, etc.
+    },
+  };
 
   return (
     <>
       <Header {...headerProps}></Header>
-      {() => {
-        switch (currentPage) {
-          case 'main':
-            return <MainPage></MainPage>
-          case 'datetime':
-            return <DatetimePage></DatetimePage>
-          case 'filters':
-            return <FiltersPage></FiltersPage>
-          case 'rooms':
-            return <RoomsPage></RoomsPage>
-          case 'confirm':
-            return <ConfirmPage></ConfirmPage>
-          case 'cancel':
-            return <CancelPage></CancelPage>
-          default:
-            return null;
-        }
-      }}
+      {renderedPage}
     </>
   );
 }

@@ -1,11 +1,16 @@
+
 "use client";
 import React from "react";
 
 import RoomDetails from "@/components/RoomDetails";
 
 let counter = 0;
+     
+interface ConfirmPage {
+  setCurrentPage: Function;
+}
 
-export default function ConfirmPage() {
+export default function ConfirmPage({ setCurrentPage }: ConfirmPage) {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [email, setEmail] = React.useState<string[]>([]);
 
