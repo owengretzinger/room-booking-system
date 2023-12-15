@@ -15,7 +15,7 @@ export default function Home() {
         <a href="datetime" className={`${optionClasses} bg-amber-350`}>
           Start New Booking
         </a>
-        <a href="cancel" className={`${optionClasses} bg-red-925`}>
+        <a href="cancel" className={`${optionClasses} bg-red`}>
           Cancel a Reservation
         </a>
       </main>

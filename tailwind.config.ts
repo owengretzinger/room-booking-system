@@ -9,12 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        red: {
-          925: "#730000",
-        },
+        // red: {
+        //   925: '#730000',
+        // },
         amber: {
           350: "#fcb514",
         },
+        'red': '#730000',
+        'yellow': '#fcb514',
       },
       fontFamily: {
         kanit: ["var(--font-kanit)"],
