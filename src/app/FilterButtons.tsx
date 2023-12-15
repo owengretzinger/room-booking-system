@@ -12,17 +12,14 @@ export default function FilterButtons({ name }: FilterButtons) {
     setIsSelected(!isSelected);
   };
 
-  return isSelected ? (
+  return (
     <button
       onClick={handleClick}
-      className="w-[7rem] h-[3rem] text-white bg-red-925 rounded-md"
-    >
-      <span>{name}</span>
-    </button>
-  ) : (
-    <button
-      onClick={handleClick}
-      className="w-[7rem] h-[3rem] text-red-925 outline outline-3 rounded-md"
+      className={`${
+        isSelected || name == "Any"
+          ? "text-white bg-red-925"
+          : "text-red-925 outline outline-3"
+      }  rounded-md px-4 py-2 m-2`}
     >
       <span>{name}</span>
     </button>
