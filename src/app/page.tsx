@@ -3,6 +3,7 @@
 import Header from '../components/Header';
 import CancelPage from '../pages/CancelPage';
 import ConfirmPage from '../pages/ConfirmPage';
+import DonePage from '../pages/DonePage';
 import DatetimePage from '../pages/DatetimePage';
 import FiltersPage from '../pages/FiltersPage';
 import MainPage from '../pages/MainPage';
@@ -49,6 +50,9 @@ export default function Home() {
       renderedPage = (
         <ConfirmPage setCurrentPage={setCurrentPage}></ConfirmPage>
       );
+      break;
+    case 'done':
+      renderedPage = <DonePage setCurrentPage={setCurrentPage}></DonePage>;
       break;
     case 'cancel':
       back = 'main';
