@@ -3,6 +3,7 @@
 import Header from '../components/Header';
 import CancelPage from '../pages/CancelPage';
 import ConfirmPage from '../pages/ConfirmPage';
+import DonePage from '../pages/DonePage';
 import DatetimePage from '../pages/DatetimePage';
 import FiltersPage from '../pages/FiltersPage';
 import MainPage from '../pages/MainPage';
@@ -15,7 +16,7 @@ export default function Home() {
 
   let next = undefined,
     back = undefined,
-    stateProgress = undefined,
+    stage = undefined,
     renderedPage = null;
 
   switch (currentPage) {
@@ -23,30 +24,38 @@ export default function Home() {
       renderedPage = <MainPage setCurrentPage={setCurrentPage}></MainPage>;
       break;
     case 'datetime':
-      back = () => setCurrentPage('main');
-      next = () => setCurrentPage('filters');
-      stateProgress = 0;
-      renderedPage = <DatetimePage setCurrentPage={setCurrentPage}></DatetimePage>;
+      back = 'main';
+      next = 'filters';
+      stage = 0;
+      renderedPage = (
+        <DatetimePage setCurrentPage={setCurrentPage}></DatetimePage>
+      );
       break;
     case 'filters':
-      back = () => setCurrentPage('datetime');
-      next = () => setCurrentPage('filters');
-      stateProgress = 1;
-      renderedPage = <FiltersPage setCurrentPage={setCurrentPage}></FiltersPage>;
+      back = 'datetime';
+      next = 'rooms';
+      stage = 1;
+      renderedPage = (
+        <FiltersPage setCurrentPage={setCurrentPage}></FiltersPage>
+      );
       break;
     case 'rooms':
-      back = () => setCurrentPage('rooms');
-      next = () => setCurrentPage('filters');
-      stateProgress = 2;
+      back = 'filters';
+      stage = 2;
       renderedPage = <RoomsPage setCurrentPage={setCurrentPage}></RoomsPage>;
       break;
     case 'confirm':
-      back = () => setCurrentPage('rooms');
-      stateProgress = 3;
-      renderedPage = <ConfirmPage setCurrentPage={setCurrentPage}></ConfirmPage>;
+      back = 'rooms';
+      stage = 3;
+      renderedPage = (
+        <ConfirmPage setCurrentPage={setCurrentPage}></ConfirmPage>
+      );
+      break;
+    case 'done':
+      renderedPage = <DonePage setCurrentPage={setCurrentPage}></DonePage>;
       break;
     case 'cancel':
-      back = () => setCurrentPage('main');
+      back = 'main';
       renderedPage = <CancelPage setCurrentPage={setCurrentPage}></CancelPage>;
       break;
     default:
@@ -56,9 +65,9 @@ export default function Home() {
   const headerProps = {
     back,
     next,
-    state_progress: stateProgress,
+    stage,
+    setCurrentPage,
     reset: () => {
-      setCurrentPage('main');
       // reset filters, datetime, etc.
     },
   };
