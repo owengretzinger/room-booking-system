@@ -1,12 +1,11 @@
 "use client";
 import React from "react";
 
-import Header from "../Header";
-import RoomDetails from "../RoomDetails";
+import RoomDetails from "@/components/RoomDetails";
 
 let counter = 0;
 
-export default function Confirm() {
+export default function ConfirmPage() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [email, setEmail] = React.useState<string[]>([]);
 
@@ -31,7 +30,6 @@ export default function Confirm() {
 
   return (
     <>
-      <Header back={"rooms"} next={undefined} state_progress={3}></Header>
       <main className="flex flex-row items-center justify-center mx-20">
         <div className="flex flex-col items-start w-1/2 mr-5">
           {isLoggedIn ? (

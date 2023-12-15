@@ -1,24 +1,44 @@
-import Header from './Header';
+'use client';
 
-const optionClasses =
-  'w-[90%] md:w-3/4 lg:w-1/2 text-center text-white rounded sm:text-lg md:text-xl lg:text-2xl py-1 md:py-2 lg:py-4';
+import Header from '../components/Header';
+import CancelPage from '../pages/CancelPage';
+import ConfirmPage from '../pages/ConfirmPage';
+import DatetimePage from '../pages/DatetimePage';
+import FiltersPage from '../pages/FiltersPage';
+import MainPage from '../pages/MainPage';
+import RoomsPage from '../pages/RoomsPage';
+
+import { useState } from 'react';
 
 export default function Home() {
+  const [back, setBack] = useState(undefined);
+  const [next, setNext] = useState(undefined);
+  const [stateProgress, setStateProgress] = useState(undefined);
+  const [currentPage, setCurrentPage] = useState('main');
+
+  const headerProps = { back, next, state_progress: stateProgress };
+
   return (
     <>
-      <Header
-        back={undefined}
-        next={undefined}
-        state_progress={undefined}
-      ></Header>
-      <main className="flex flex-col items-center justify-center gap-5 min-h-full -translate-y-44">
-        <a href="datetime" className={`${optionClasses} bg-amber-350`}>
-          Start New Booking
-        </a>
-        <a href="cancel" className={`${optionClasses} bg-red-925`}>
-          Cancel a Reservation
-        </a>
-      </main>
+      <Header {...headerProps}></Header>
+      {() => {
+        switch (currentPage) {
+          case 'main':
+            return <MainPage></MainPage>
+          case 'datetime':
+            return <DatetimePage></DatetimePage>
+          case 'filters':
+            return <FiltersPage></FiltersPage>
+          case 'rooms':
+            return <RoomsPage></RoomsPage>
+          case 'confirm':
+            return <ConfirmPage></ConfirmPage>
+          case 'cancel':
+            return <CancelPage></CancelPage>
+          default:
+            return null;
+        }
+      }}
     </>
   );
 }
