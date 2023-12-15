@@ -27,16 +27,16 @@ export default function Header({ back, next, state_progress }: Header) {
   return (
     <header className="w-full flex items-center justify-center flex-col p-5 gap-5 select-none flex-wrap">
       {/* Back, Title, Next */}
-      <nav className="flex-auto flex w-full text-red-925 gap-1 sm:gap-3 lg:gap-5">
+      <nav className="flex-auto flex w-full text-red gap-1 sm:gap-3 lg:gap-5">
         {back !== undefined ? (
           <a
             href={back}
-            className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl border-solid border-4 rounded-xl border-red-925 flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem]"
+            className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl border-solid border-4 rounded-xl border-red flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem]"
           >
             Back
           </a>
         ) : null}
-        <a href='/' className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red-925 flex-auto h-10 md:h-12 lg:h-16">
+        <a href='/' className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red flex-auto h-10 md:h-12 lg:h-16">
           McMaster Room Booking
         </a>
         {next !== undefined ? (
@@ -59,7 +59,7 @@ export default function Header({ back, next, state_progress }: Header) {
                   key={i}
                   {...link}
                   className={`${
-                    visitedState ? 'bg-red-925' : 'bg-neutral-300'
+                    visitedState ? 'bg-red' : 'bg-neutral-300'
                   } text-white text-[0.5rem] sm:text-xs lg:text-base box-border flex-auto w-24 ${
                     i === 0
                       ? styles['first-arrow']
