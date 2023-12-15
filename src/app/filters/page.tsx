@@ -1,5 +1,6 @@
 import FilterButtons from "../FilterButtons";
 import Header from "../Header";
+import Image from "next/image";
 
 export default function Filters() {
   // Capacity Options
@@ -7,91 +8,70 @@ export default function Filters() {
     { key: 0, name: "Any" },
     { key: 1, name: "1-4" },
     { key: 2, name: "5-9" },
-    { key: 3, name: "10-14" },
-    { key: 4, name: ">15" },
+    { key: 3, name: "10-20" },
+    { key: 4, name: ">20" },
   ];
   // Utilities Options
   const utilities = [
-    { key: 0, name: "Any" },
-    { key: 1, name: "Wifi" },
-    { key: 2, name: "Projector" },
-    { key: 3, name: "Whiteboard" },
-    { key: 4, name: "TV" },
-    { key: 5, name: "Outlets" },
-    { key: 6, name: "Computer" },
-    { key: 7, name: "Blackboard" },
-    { key: 8, name: "Windows" },
-    { key: 9, name: "Markers" },
+    { key: 0, name: "" },
+    { key: 1, name: "Projector" },
+    { key: 2, name: "Whiteboard" },
+    { key: 3, name: "Blackboard" },
+    { key: 4, name: "Windows" },
+    { key: 5, name: "Computer" },
   ];
   // Building Options
   const building = [
     { key: 0, name: "Any" },
-    { key: 0, name: "Mills" },
-    { key: 0, name: "Thode" },
-    { key: 0, name: "Gerald Hatch Centre" },
-    { key: 0, name: "Health Sciences Library" },
+    { key: 1, name: "Mills" },
+    { key: 2, name: "Thode" },
+    { key: 3, name: "Gerald Hatch Centre" },
+    { key: 4, name: "Health Sciences Library" },
   ];
-
-  // Display Capacity
-  const displayCapacity = capacity.map((item) => (
-    <div key={item.key}>
-      <FilterButtons name={item.name} />
-    </div>
-  ));
-  // Display Utilities
-  const displayUtilities = utilities.map((item) => (
-    <div key={item.key}>
-      <FilterButtons name={item.name} />
-    </div>
-  ));
-  // Display Building
-  const displayBuilding = building.map((item) => (
-    <div key={item.key}>
-      <FilterButtons name={item.name} />
-    </div>
-  ));
-
   return (
     <>
       <Header back={"datetime"} next={"rooms"} state_progress={1}></Header>
       <main className="flex justify-center">
-        <div className="flex flex-col items-start px-40 py-16">
+        <div className="flex flex-col items-start max-w-[500px] gap-5">
           {/* Capacity*/}
-          <div className="flex flex-col items-start my-5">
+          <div className="flex flex-col items-start">
             <div className="flex flex-row">
-              <img src="digital_wellbeing.svg" />
+              <Image src="digital_wellbeing.svg" alt="capacity icon" width={40} height={40} />
               <h1 className="text-2xl font-bold text-red algin-middle leading-[3rem]">
                 Capacity
               </h1>
             </div>
             <div className="flex flex-row justify-start flex-wrap">
-              {displayCapacity}
+              {/* {displayCapacity} */}
+              <FilterButtons items={capacity} />
             </div>
           </div>
 
           {/* Utilities */}
-          <div className="flex flex-col items-start my-5">
+          <div className="flex flex-col items-start">
             <div className="flex flex-row">
-              <img src="power.svg" />
+              <Image src="power.svg" alt="outlet icon" width={40} height={40} />
               <h1 className="text-2xl font-bold text-red algin-middle leading-[3rem]">
                 Utilities
               </h1>
             </div>
             <div className="flex flex-row justify-start flex-wrap">
-              {displayUtilities}
+              {/* {displayUtilities} */}
+              <FilterButtons items={utilities} />
             </div>
           </div>
 
           {/* Building */}
-          <div className="flex flex-col items-start my-5">
+          <div className="flex flex-col items-start">
             <div className="flex flex-row">
-              <img src="account_balance.svg" />
+              <Image src="account_balance.svg" alt="building icon" width={40} height={40} />
               <h1 className="text-2xl font-bold text-red algin-middle leading-[3rem]">
                 Building
               </h1>
             </div>
             <div className="flex flex-row justify-start flex-wrap">
-              {displayBuilding}
+              {/* {displayBuilding} */}
+              <FilterButtons items={building} />
             </div>
           </div>
         </div>
