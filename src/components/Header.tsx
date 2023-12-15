@@ -18,8 +18,8 @@ interface Header {
   back: string | undefined;
   next: string | undefined;
   reset: Function;
-  setCurrentPage: Function;
   stage: number | undefined;
+  setCurrentPage: Function;
 }
 
 /**
