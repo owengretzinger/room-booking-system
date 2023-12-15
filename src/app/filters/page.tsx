@@ -60,7 +60,7 @@ export default function Filters() {
           <div className="flex flex-col items-start my-5">
             <div className="flex flex-row">
               <img src="digital_wellbeing.svg" />
-              <h1 className="text-2xl font-bold text-red-925 algin-middle leading-[3rem]">
+              <h1 className="text-2xl font-bold text-red algin-middle leading-[3rem]">
                 Capacity
               </h1>
             </div>
@@ -73,7 +73,7 @@ export default function Filters() {
           <div className="flex flex-col items-start my-5">
             <div className="flex flex-row">
               <img src="power.svg" />
-              <h1 className="text-2xl font-bold text-red-925 algin-middle leading-[3rem]">
+              <h1 className="text-2xl font-bold text-red algin-middle leading-[3rem]">
                 Utilities
               </h1>
             </div>
@@ -86,7 +86,7 @@ export default function Filters() {
           <div className="flex flex-col items-start my-5">
             <div className="flex flex-row">
               <img src="account_balance.svg" />
-              <h1 className="text-2xl font-bold text-red-925 algin-middle leading-[3rem]">
+              <h1 className="text-2xl font-bold text-red algin-middle leading-[3rem]">
                 Building
               </h1>
             </div>
