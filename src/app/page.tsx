@@ -15,7 +15,7 @@ export default function Home() {
 
   let next = undefined,
     back = undefined,
-    stateProgress = undefined,
+    stage = undefined,
     renderedPage = null;
 
   switch (currentPage) {
@@ -25,7 +25,7 @@ export default function Home() {
     case 'datetime':
       back = 'main';
       next = 'filters';
-      stateProgress = 0;
+      stage = 0;
       renderedPage = (
         <DatetimePage setCurrentPage={setCurrentPage}></DatetimePage>
       );
@@ -33,19 +33,19 @@ export default function Home() {
     case 'filters':
       back = 'datetime';
       next = 'rooms';
-      stateProgress = 1;
+      stage = 1;
       renderedPage = (
         <FiltersPage setCurrentPage={setCurrentPage}></FiltersPage>
       );
       break;
     case 'rooms':
       back = 'filters';
-      stateProgress = 2;
+      stage = 2;
       renderedPage = <RoomsPage setCurrentPage={setCurrentPage}></RoomsPage>;
       break;
     case 'confirm':
       back = 'rooms';
-      stateProgress = 3;
+      stage = 3;
       renderedPage = (
         <ConfirmPage setCurrentPage={setCurrentPage}></ConfirmPage>
       );
@@ -61,7 +61,7 @@ export default function Home() {
   const headerProps = {
     back,
     next,
-    state_progress: stateProgress,
+    stage,
     setCurrentPage,
     reset: () => {
       // reset filters, datetime, etc.

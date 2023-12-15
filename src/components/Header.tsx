@@ -19,19 +19,19 @@ interface Header {
   next: string | undefined;
   reset: Function;
   setCurrentPage: Function;
-  state_progress: number | undefined;
+  stage: number | undefined;
 }
 
 /**
  * Header component for pages.
  * back: the page the back button should take you to. Leave undefined to hide.
  * next: the page the next button should take you to. Leave undefined to hide.
- * state_progress: the current room booking state from 0 to 3. Leave undefined to hide.
+ * stage: the current room booking state from 0 to 3. Leave undefined to hide.
  */
 export default function Header({
   back,
   next,
-  state_progress,
+  stage,
   setCurrentPage,
   reset,
 }: Header) {
@@ -67,19 +67,17 @@ export default function Header({
       </nav>
       {/* Navigation Bar */}
       <nav className="flex w-full lg:w-3/4 h-10 lg:h-16">
-        {state_progress !== undefined
+        {stage !== undefined
           ? states.map(({ state, page }, i) => {
-              const clickable = i < state_progress;
+              const clickable = i < stage;
               const onClick =
-                i < state_progress
-                  ? { onClick: () => setCurrentPage(page) }
-                  : {};
+                i < stage ? { onClick: () => setCurrentPage(page) } : {};
               return (
                 <button
                   key={i}
                   {...onClick}
                   className={`${
-                    i <= state_progress ? 'bg-red' : 'bg-neutral-300'
+                    i <= stage ? 'bg-red' : 'bg-neutral-300'
                   } text-white text-[0.5rem] sm:text-xs lg:text-base box-border flex-auto w-24 ${
                     i === 0
                       ? styles['first-arrow']
