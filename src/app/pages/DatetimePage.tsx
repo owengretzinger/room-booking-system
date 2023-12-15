@@ -7,7 +7,7 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import '../styles/day-picker.css';
 
-export default function Datetime() {
+export default function DatetimePage() {
   const today = new Date();
   const [selectedDay, setSelected] = useState<Date | undefined>(today);
   const footer = selectedDay ? (
