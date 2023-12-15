@@ -16,6 +16,9 @@ const config: Config = {
           350: '#fcb514',
         },
       },
+      fontFamily: {
+        kanit: ['var(--font-kanit)'],
+      },
     },
   },
   plugins: [],
