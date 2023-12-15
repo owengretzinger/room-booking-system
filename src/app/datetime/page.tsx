@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 
 import {  DayPicker } from 'react-day-picker';
-import  'react-day-picker/dist/style.css';
+import 'react-day-picker/dist/style.css';
+import './day-picker.css';
 
 export default function Datetime() {
   const today = new Date();
@@ -15,19 +16,19 @@ export default function Datetime() {
   ) : (
     <p>Please pick a day.</p>
   );
+
   return (
     <>
       <Header back={'/'} next={'filters'} state_progress={0}></Header>
       <main className="flex min-h-screen flex-col items-center justify-between">
         <DayPicker
-        styles={{ caption: { color: '#A60505' } }}
-        showOutsideDays
-        mode="single"
-        required
-        selected={selectedDay}
-        onSelect={setSelected}
-        footer={footer}
-        disabled={{ before: today }}
+          showOutsideDays
+          mode="single"
+          required
+          selected={selectedDay}
+          onSelect={setSelected}
+          footer={footer}
+          disabled={{ before: today }}
         />
       </main>
     </>
