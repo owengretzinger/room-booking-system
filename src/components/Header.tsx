@@ -1,7 +1,10 @@
 import styles from '../styles/header.module.css';
 
-const stateConstructor = (state: string, href: string) => {
-  return { state, href };
+const stateConstructor = (
+  state: string,
+  page: string
+): { state: string; page: string } => {
+  return { state, page };
 };
 
 const states = [
@@ -12,9 +15,10 @@ const states = [
 ];
 
 interface Header {
-  back: Function | undefined;
-  next: Function | undefined;
+  back: string | undefined;
+  next: string | undefined;
   reset: Function;
+  setCurrentPage: Function;
   state_progress: number | undefined;
 }
 
@@ -24,28 +28,37 @@ interface Header {
  * next: the page the next button should take you to. Leave undefined to hide.
  * state_progress: the current room booking state from 0 to 3. Leave undefined to hide.
  */
-export default function Header({ back, next, reset, state_progress }: Header) {
+export default function Header({
+  back,
+  next,
+  state_progress,
+  setCurrentPage,
+  reset,
+}: Header) {
   return (
     <header className="w-full flex items-center justify-center flex-col p-5 gap-5 select-none flex-wrap">
       {/* Back, Title, Next */}
       <nav className="flex-auto flex w-full text-red gap-1 sm:gap-3 lg:gap-5">
         {back !== undefined ? (
           <button
-            onClick={() => back}
+            onClick={() => setCurrentPage(back)}
             className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl border-solid border-4 rounded-xl border-red flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem]"
           >
             Back
           </button>
         ) : null}
         <button
-          onClick={() => reset}
+          onClick={() => {
+            reset();
+            setCurrentPage('main');
+          }}
           className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red flex-auto h-10 md:h-12 lg:h-16"
         >
           McMaster Room Booking
         </button>
         {next !== undefined ? (
           <button
-            onClick={() => next}
+            onClick={() => setCurrentPage(next)}
             className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-amber-350 rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem]"
           >
             Next
@@ -55,15 +68,18 @@ export default function Header({ back, next, reset, state_progress }: Header) {
       {/* Navigation Bar */}
       <nav className="flex w-full lg:w-3/4 h-10 lg:h-16">
         {state_progress !== undefined
-          ? states.map(({ state, href }, i) => {
-              const visitedState = i <= state_progress;
-              const link = visitedState && i !== state_progress ? { href } : {};
+          ? states.map(({ state, page }, i) => {
+              const clickable = i < state_progress;
+              const onClick =
+                i < state_progress
+                  ? { onClick: () => setCurrentPage(page) }
+                  : {};
               return (
-                <a
+                <button
                   key={i}
-                  {...link}
+                  {...onClick}
                   className={`${
-                    visitedState ? 'bg-red' : 'bg-neutral-300'
+                    i <= state_progress ? 'bg-red' : 'bg-neutral-300'
                   } text-white text-[0.5rem] sm:text-xs lg:text-base box-border flex-auto w-24 ${
                     i === 0
                       ? styles['first-arrow']
@@ -71,9 +87,10 @@ export default function Header({ back, next, reset, state_progress }: Header) {
                       ? styles['last-arrow']
                       : styles['middle-arrow']
                   } flex items-center justify-center`}
+                  disabled={!clickable}
                 >
                   {state}
-                </a>
+                </button>
               );
             })
           : null}
