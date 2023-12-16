@@ -7,7 +7,7 @@ const optionClasses =
 
 export default function MainPage({ setCurrentPage }: MainPage) {
   return (
-    <main className="flex flex-col items-center justify-center gap-5 min-h-full -translate-y-44">
+    <main className="flex flex-col items-center justify-center gap-5 min-h-full">
       <button
         onClick={() => setCurrentPage('datetime')}
         className={`${optionClasses} bg-amber-350`}
