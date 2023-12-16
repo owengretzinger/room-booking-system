@@ -64,9 +64,6 @@ export default function Datetime() {
           footer={footer}
           disabled={{ before: today }}
         />
-        <div className="gap-x-1 columns-4 scale-75">  
-          <FilterButtons items={capacity}/>
-        </div>
       </main>
     </>
   );
