@@ -66,25 +66,8 @@ export default function Header({
           </button>
 
 
-          <div className="flex-1 max-w-[12rem] min-w-[4rem]">
-          {/* {next &&
-            <button
-              onClick={() => setCurrentPage(next)}
-              className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-yellow rounded-xl h-10 md:h-12 lg:h-16 w-full"
-            >
-              Next
-            </button>
-          } */}
-        </div>
-
-          {/* {next !== undefined ? (
-          <button
-            onClick={() => setCurrentPage(next)}
-            className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-amber-350 rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem]"
-          >
-            Next
-          </button>
-        ) : null} */}
+          <div className="flex-1 max-w-[12rem] min-w-[4rem]"></div>
+          
         </nav>
         {/* Navigation Bar */}
         <nav className="flex w-full lg:w-3/4 h-10 lg:h-16">
