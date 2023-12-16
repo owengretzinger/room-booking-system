@@ -5,25 +5,17 @@ import { useState } from "react";
 export default function Timeslots({ items }: { items: { key: number, name: string }[] }) {
   const [selectedButtons, setSelectedButtons] = useState(new Set<number>([0]));
 
-
-  // note: need to create a new set to trigger rerender for any changes
   const handleClick = (key: number) => {
-
-
-    // already selected, deselect
     if (selectedButtons.has(key)) {
       const updatedButtons = new Set(selectedButtons);
       updatedButtons.delete(key);
-      // if everything is unselected, select any
       if (updatedButtons.size === 0) {
         setSelectedButtons(new Set());
       }
-      // otherwise just unselect
       else {
         setSelectedButtons(updatedButtons);
       }
     }
-    // not selected, select
     else {
       const updatedButtons = new Set(selectedButtons);
       updatedButtons.add(key);
@@ -31,8 +23,7 @@ export default function Timeslots({ items }: { items: { key: number, name: strin
       setSelectedButtons(updatedButtons);
     }
   };
-
-
+  
   return (
     <>
       {/* Capacity*/}
