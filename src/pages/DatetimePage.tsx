@@ -9,7 +9,11 @@ import '../styles/day-picker.css';
 
 import FilterButtons from '../components/Timeslots';
 
-export default function Datetime() {
+interface DatetimePage {
+  setCurrentPage: Function;
+}
+
+export default function Datetime({ setCurrentPage }: DatetimePage) {
   const today = new Date();
   const [selectedDay, setSelected] = useState<Date | undefined>(today);
   const footer = selectedDay ? (
