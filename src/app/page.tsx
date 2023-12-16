@@ -74,8 +74,15 @@ export default function Home() {
 
   return (
     <>
-      <Header {...headerProps}></Header>
-      {renderedPage}
+      {currentPage === 'main' || currentPage === 'done' ?
+        renderedPage :
+        <>
+          <Header {...headerProps}></Header>
+          <div className="pt-52 relative">
+            {renderedPage}
+          </div>
+        </>
+      }
     </>
   );
 }
