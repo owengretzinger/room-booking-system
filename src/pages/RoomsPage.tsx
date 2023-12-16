@@ -1,4 +1,4 @@
-import RoomCard from '@/components/RoomCard';
+import RoomCard from "@/components/RoomCard";
 
 interface RoomsPage {
   setCurrentPage: Function;
@@ -9,9 +9,9 @@ export default function RoomsPage({ setCurrentPage }: RoomsPage) {
     <>
       <main className="flex flex-col items-center justify-between px-2">
         <div className="flex flex-col gap-8 w-full items-center">
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
+          <RoomCard setCurrentPage={setCurrentPage} />
+          <RoomCard setCurrentPage={setCurrentPage} />
+          <RoomCard setCurrentPage={setCurrentPage} />
         </div>
       </main>
     </>
