@@ -12,7 +12,7 @@ export default function RoomCard({ setCurrentPage }: RoomCard) {
       {/* image */}
       <div className="aspect-square bg-gray-400 rounded-xl hidden sm:block">
         <Image
-          src="/images/big-bingo.png"
+          src="/images/room-sample.jpg"
           width={100}
           height={100}
           className="rounded-xl w-full h-full object-cover"

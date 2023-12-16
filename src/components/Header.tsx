@@ -8,10 +8,10 @@ const stateConstructor = (
 };
 
 const states = [
-  stateConstructor('Date & Time', 'datetime'),
-  stateConstructor('Filters', 'filters'),
-  stateConstructor('Rooms', 'rooms'),
-  stateConstructor('Confirm', 'confirm'),
+  stateConstructor('Select Date & Time', 'datetime'),
+  stateConstructor('Select Filters', 'filters'),
+  stateConstructor('Select Room', 'rooms'),
+  stateConstructor('Confirm Booking', 'confirm'),
 ];
 
 interface Header {
@@ -36,40 +36,43 @@ export default function Header({
   reset,
 }: Header) {
   return (
-    <header className="w-full flex items-center justify-center flex-col p-5 gap-5 select-none flex-wrap">
-      {/* Back, Title, Next */}
-      <nav className="flex-auto flex w-full text-red gap-1 sm:gap-3 lg:gap-5">
-        {back !== undefined ? (
+    <>
+      <header className="w-screen flex items-center justify-center flex-col p-5 gap-5 select-none flex-wrap fixed bg-white z-50 border-b-4 border-red">
+        {/* Back, Title, Next */}
+        <nav className="flex-auto flex w-full text-red gap-1 sm:gap-3 lg:gap-5">
+
+
+          <div className="flex-1 max-w-[12rem] min-w-[4rem]">
+            {back &&
+              <button
+                onClick={() => setCurrentPage(back)}
+                className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl  border-4 rounded-xl border-red h-10 md:h-12 lg:h-16 w-full"
+              >
+                Back
+              </button>
+            }
+          </div>
+
+
           <button
-            onClick={() => setCurrentPage(back)}
-            className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl border-solid border-4 rounded-xl border-red flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem]"
+            onClick={() => {
+              reset();
+              setCurrentPage('main');
+            }}
+            disabled={stage === undefined}
+            className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red flex-auto h-10 md:h-12 lg:h-16"
           >
-            Back
+            McMaster Room Booking
           </button>
-        ) : null}
-        <button
-          onClick={() => {
-            reset();
-            setCurrentPage('main');
-          }}
-          disabled={stage === undefined}
-          className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red flex-auto h-10 md:h-12 lg:h-16"
-        >
-          McMaster Room Booking
-        </button>
-        {next !== undefined ? (
-          <button
-            onClick={() => setCurrentPage(next)}
-            className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-amber-350 rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem]"
-          >
-            Next
-          </button>
-        ) : null}
-      </nav>
-      {/* Navigation Bar */}
-      <nav className="flex w-full lg:w-3/4 h-10 lg:h-16">
-        {stage !== undefined
-          ? states.map(({ state, page }, i) => {
+
+
+          <div className="flex-1 max-w-[12rem] min-w-[4rem]"></div>
+          
+        </nav>
+        {/* Navigation Bar */}
+        <nav className="flex w-full lg:w-3/4 h-10 lg:h-16">
+          {stage !== undefined
+            ? states.map(({ state, page }, i) => {
               const clickable = i < stage;
               const onClick =
                 i < stage ? { onClick: () => setCurrentPage(page) } : {};
@@ -77,23 +80,31 @@ export default function Header({
                 <button
                   key={i}
                   {...onClick}
-                  className={`${
-                    i <= stage ? 'bg-red' : 'bg-neutral-300'
-                  } text-white text-[0.5rem] sm:text-xs lg:text-base box-border flex-auto w-24 ${
-                    i === 0
+                  className={`${i <= stage ? 'bg-red' : 'bg-neutral-300'
+                    } text-white text-[0.5rem] sm:text-xs lg:text-base box-border flex-auto w-24 ${i === 0
                       ? styles['first-arrow']
                       : i === states.length - 1
-                      ? styles['last-arrow']
-                      : styles['middle-arrow']
-                  } flex items-center justify-center`}
+                        ? styles['last-arrow']
+                        : styles['middle-arrow']
+                    } flex items-center justify-center`}
                   disabled={!clickable}
                 >
                   {state}
                 </button>
               );
             })
-          : null}
-      </nav>
-    </header>
+            : null}
+        </nav>
+      </header>
+
+      {next && <div className="w-screen h-screen fixed flex justify-end items-end pointer-events-none z-50">
+        <button
+          onClick={() => setCurrentPage(next)}
+          className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-amber-350 rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem] m-20 pointer-events-auto"
+        >
+          Next
+        </button>
+      </div>}
+    </>
   );
 }
