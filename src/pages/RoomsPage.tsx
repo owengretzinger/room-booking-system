@@ -53,15 +53,6 @@ const rooms = [
   roomMaker('2B22', 9, new Set(['Outlets', 'TV']), hsl),
 ];
 
-interface RoomsPage {
-  filters: {
-    capacity: Set<string>;
-    utilities: Set<string>;
-    buildings: Set<string>;
-  };
-  setCurrentPage: Function;
-}
-
 const getRooms = (filters: {
   capacity: Set<string>;
   utilities: Set<string>;
@@ -143,7 +134,21 @@ const getRooms = (filters: {
     .sort((room1, room2) => room2.score - room1.score);
 };
 
-export default function RoomsPage({ filters, setCurrentPage }: RoomsPage) {
+interface RoomsPage {
+  filters: {
+    capacity: Set<string>;
+    utilities: Set<string>;
+    buildings: Set<string>;
+  };
+  setSelectedRoom: Function;
+  setCurrentPage: Function;
+}
+
+export default function RoomsPage({
+  filters,
+  setSelectedRoom,
+  setCurrentPage,
+}: RoomsPage) {
   const filteredRooms = getRooms(filters);
 
   console.log(filteredRooms);
@@ -152,9 +157,16 @@ export default function RoomsPage({ filters, setCurrentPage }: RoomsPage) {
     <>
       <main className="flex flex-col items-center justify-between px-2">
         <div className="flex flex-col gap-8 w-full items-center">
-          <RoomCard setCurrentPage={setCurrentPage} />
-          <RoomCard setCurrentPage={setCurrentPage} />
-          <RoomCard setCurrentPage={setCurrentPage} />
+          {filteredRooms.map((room, idx) => {
+            return (
+              <RoomCard
+                key={idx}
+                room={room}
+                setSelectedRoom={setSelectedRoom}
+                setCurrentPage={setCurrentPage}
+              />
+            );
+          })}
         </div>
       </main>
     </>
