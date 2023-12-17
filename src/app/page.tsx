@@ -15,6 +15,8 @@ import TimeSelector from '@/components/Timepicker';
 export default function Home() {
   const [currentPage, setCurrentPage] = useState('main');
   const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
+  const [selectedDay, setSelectedDay] = useState<Date>(new Date());
+  const [selectedSlots, setSelectedSlots] = useState<Set<number>>(new Set<number>([]));
 
   let next = undefined,
     back = undefined,
@@ -31,7 +33,10 @@ export default function Home() {
       stage = 0;
       renderedPage = (
         <DatetimePage
-          setCurrentPage={setCurrentPage}
+          selectedDay={selectedDay}
+          setSelectedDay={setSelectedDay}
+          selectedSlots={selectedSlots}
+          setSelectedSlots={setSelectedSlots}
           nextButtonDisabled={nextButtonDisabled}
           setNextButtonDisabled={setNextButtonDisabled}
         ></DatetimePage>

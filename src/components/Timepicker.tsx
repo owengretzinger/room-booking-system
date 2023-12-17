@@ -1,53 +1,58 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const timeslots = [
-  { key: 1, name: "8:00 AM - 8:30 AM" },
-  { key: 2, name: "8:30 AM - 9:00 AM" },
-  { key: 3, name: "9:00 AM - 9:30 AM" },
-  { key: 4, name: "9:30 AM - 10:00 AM" },
-  { key: 5, name: "10:00 AM - 10:30 AM" },
-  { key: 6, name: "10:30 AM - 11:00 AM" },
-  { key: 7, name: "11:00 AM - 11:30 AM" },
-  { key: 8, name: "11:30 AM - 12:00 PM" },
-  { key: 9, name: "12:00 PM - 12:30 PM" },
-  { key: 10, name: "12:30 PM - 1:00 PM" },
-  { key: 11, name: "1:00 PM - 1:30 PM" },
-  { key: 12, name: "1:30 PM - 2:00 PM" },
-  { key: 13, name: "2:00 PM - 2:30 PM" },
-  { key: 14, name: "2:30 PM - 3:00 PM" },
-  { key: 15, name: "3:00 PM - 3:30 PM" },
-  { key: 16, name: "3:30 PM - 4:00 PM" },
-  { key: 17, name: "4:00 PM - 4:30 PM" },
-  { key: 18, name: "4:30 PM - 5:00 PM" },
-  { key: 19, name: "5:00 PM - 5:30 PM" },
-  { key: 20, name: "5:30 PM - 6:00 PM" },
-  { key: 21, name: "6:00 PM - 6:30 PM" },
-  { key: 22, name: "6:30 PM - 7:00 PM" },
-  { key: 23, name: "7:00 PM - 7:30 PM" },
-  { key: 24, name: "7:30 PM - 8:00 PM" },
-  { key: 25, name: "8:00 PM - 8:30 PM" },
-  { key: 26, name: "8:30 PM - 9:00 PM" },
-  { key: 27, name: "9:00 PM - 9:30 PM" },
-  { key: 28, name: "9:30 PM - 10:00 PM" },
-  { key: 29, name: "10:00 PM - 10:30 PM" },
-  { key: 30, name: "10:30 PM - 11:00 PM" },
-  { key: 31, name: "11:00 PM - 11:30 PM" },
-  { key: 32, name: "11:30 PM - 12:00 AM" },
+  { key: 1, name: '8:00 AM - 8:30 AM' },
+  { key: 2, name: '8:30 AM - 9:00 AM' },
+  { key: 3, name: '9:00 AM - 9:30 AM' },
+  { key: 4, name: '9:30 AM - 10:00 AM' },
+  { key: 5, name: '10:00 AM - 10:30 AM' },
+  { key: 6, name: '10:30 AM - 11:00 AM' },
+  { key: 7, name: '11:00 AM - 11:30 AM' },
+  { key: 8, name: '11:30 AM - 12:00 PM' },
+  { key: 9, name: '12:00 PM - 12:30 PM' },
+  { key: 10, name: '12:30 PM - 1:00 PM' },
+  { key: 11, name: '1:00 PM - 1:30 PM' },
+  { key: 12, name: '1:30 PM - 2:00 PM' },
+  { key: 13, name: '2:00 PM - 2:30 PM' },
+  { key: 14, name: '2:30 PM - 3:00 PM' },
+  { key: 15, name: '3:00 PM - 3:30 PM' },
+  { key: 16, name: '3:30 PM - 4:00 PM' },
+  { key: 17, name: '4:00 PM - 4:30 PM' },
+  { key: 18, name: '4:30 PM - 5:00 PM' },
+  { key: 19, name: '5:00 PM - 5:30 PM' },
+  { key: 20, name: '5:30 PM - 6:00 PM' },
+  { key: 21, name: '6:00 PM - 6:30 PM' },
+  { key: 22, name: '6:30 PM - 7:00 PM' },
+  { key: 23, name: '7:00 PM - 7:30 PM' },
+  { key: 24, name: '7:30 PM - 8:00 PM' },
+  { key: 25, name: '8:00 PM - 8:30 PM' },
+  { key: 26, name: '8:30 PM - 9:00 PM' },
+  { key: 27, name: '9:00 PM - 9:30 PM' },
+  { key: 28, name: '9:30 PM - 10:00 PM' },
+  { key: 29, name: '10:00 PM - 10:30 PM' },
+  { key: 30, name: '10:30 PM - 11:00 PM' },
+  { key: 31, name: '11:00 PM - 11:30 PM' },
+  { key: 32, name: '11:30 PM - 12:00 AM' },
 ];
 
-export default function Timeslots({
-  nextButtonDisabled,
-  setNextButtonDisabled,
-}: {
+interface Timeslots {
+  selectedSlots: Set<number>;
+  setSelectedSlots: Function;
   nextButtonDisabled: boolean;
   setNextButtonDisabled: Function;
-}) {
-  const [selectedSlots, setSelectedSlots] = useState(new Set<number>([]));
+}
+
+export default function Timeslots({
+  selectedSlots,
+  setSelectedSlots,
+  nextButtonDisabled,
+  setNextButtonDisabled,
+}: Timeslots) {
   const [dragOperation, setDragOperation] = useState<
-    "Selecting" | "Deselecting" | "None"
-  >("None");
+    'Selecting' | 'Deselecting' | 'None'
+  >('None');
   const [dragStartIndex, setDragStartIndex] = useState<number>(-1);
 
   // some pretty ugly logic...
@@ -57,7 +62,7 @@ export default function Timeslots({
     setDragStartIndex(key);
     // if we're clicking on a selected slot, deselect it
     if (selectedSlots.has(key)) {
-      setDragOperation("Deselecting");
+      setDragOperation('Deselecting');
       selectedSlots.delete(key);
       // if we deselect in a block of slots, deselect everything after it too
       if (selectedSlots.has(key - 1) || selectedSlots.has(key + 1)) {
@@ -70,7 +75,7 @@ export default function Timeslots({
     }
     // if we're clicking on an unselected slot, select it
     else {
-      setDragOperation("Selecting");
+      setDragOperation('Selecting');
       // if there's already a block of selected slots, unselect them and select this one
       if (!selectedSlots.has(key - 1) && !selectedSlots.has(key + 1)) {
         selectedSlots.clear();
@@ -94,10 +99,10 @@ export default function Timeslots({
       i <= Math.max(dragStartIndex, key);
       i++
     ) {
-      if (dragOperation === "Selecting" && !selectedSlots.has(i)) {
+      if (dragOperation === 'Selecting' && !selectedSlots.has(i)) {
         selectedSlots.add(i);
       }
-      if (dragOperation === "Deselecting" && selectedSlots.has(i)) {
+      if (dragOperation === 'Deselecting' && selectedSlots.has(i)) {
         selectedSlots.delete(i);
       }
     }
@@ -107,11 +112,11 @@ export default function Timeslots({
   // stop dragging when we let go of the mouse or it leaves the timeslots div
   const onMouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
-    setDragOperation("None");
+    setDragOperation('None');
   };
   const onMouseLeave = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
-    setDragOperation("None");
+    setDragOperation('None');
   };
   // if we don't include this, the browser will select text and everything will get messed up
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -135,7 +140,7 @@ export default function Timeslots({
           <div
             key={slot.key}
             className={`relative border-2 border-red flex-1 ${
-              selectedSlots.has(slot.key) ? "bg-yellow" : ""
+              selectedSlots.has(slot.key) ? 'bg-yellow' : ''
             }`}
             onMouseEnter={() => handleDrag(slot.key)}
             onMouseDown={() => handleMouseDown(slot.key)}
@@ -149,7 +154,7 @@ export default function Timeslots({
         ))}
       </div>
       {selectedSlots.size == 0
-        ? "Select a time slot"
+        ? 'Select a time slot'
         : `You selected ${indexToTime(
             Math.min(...Array.from(selectedSlots)) - 1
           )} to ${indexToTime(Math.max(...Array.from(selectedSlots)))}`}
@@ -159,7 +164,7 @@ export default function Timeslots({
 }
 
 function indexToTime(i: number) {
-  return `${(Math.floor(i / 2 + 7) % 12) + 1}:${i % 2 == 0 ? "0" : "3"}0${
-    i / 2 + 8 <= 11 ? "AM" : "PM"
+  return `${(Math.floor(i / 2 + 7) % 12) + 1}:${i % 2 == 0 ? '0' : '3'}0${
+    i / 2 + 8 <= 11 ? 'AM' : 'PM'
   }`;
 }
