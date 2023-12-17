@@ -35,7 +35,7 @@ const rooms = [
   roomMaker('Group Study 8', 6, new Set(['Outlets']), thode),
   roomMaker('Group Study 9', 6, new Set(['Outlets']), thode),
   roomMaker('Group Study 10', 6, new Set(['Outlets']), thode),
-  roomMaker('Individual/Tutorial/Meditation Room - 102', 2, new Set([]), thode),
+  roomMaker('ITM Room - 102', 2, new Set([]), thode),
   // HSL
   roomMaker('1B14', 10, new Set(['Outlets']), hsl),
   roomMaker('1B15', 10, new Set(['Outlets']), hsl),
@@ -80,18 +80,23 @@ const getRooms = (filters: {
 
   // Check utilities
   matchedRooms = matchedRooms.map((room) => {
-    let has = new Array<string>();
-    let missing = new Array<string>();
-    room.utilities.forEach((utility) => {
-      const utilityMatches =
-        filters.utilities.has(utility) || filters.utilities.has('Any');
-      if (utilityMatches) {
-        has = [...has, utility];
-      } else {
-        missing = [...missing, utility];
-      }
-    });
-    const score = has.length / filters.utilities.size / 3;
+    let has: string[] = [];
+    let missing: string[] = [];
+    if (!filters.utilities.has('Any')) {
+      filters.utilities.forEach((utility) => {
+        const utilityMatches = room.utilities.has(utility);
+        if (utilityMatches) {
+          has = [...has, utility];
+        } else {
+          missing = [...missing, utility];
+        }
+      });
+    } else {
+      has = Array.from(room.utilities);
+    }
+    const score = filters.utilities.has('Any')
+      ? 1 / 3
+      : has.length / filters.utilities.size / 3;
     return { ...room, has, missing, score: room.score + score };
   });
 
@@ -131,7 +136,17 @@ const getRooms = (filters: {
 
   return matchedRooms
     .filter((room) => room.score >= 0.5)
-    .sort((room1, room2) => room2.score - room1.score);
+    .sort((room1, room2) => {
+      const score = room2.score - room1.score;
+      if (score === 0) {
+        const has = room2.has.length - room1.has.length;
+        if (has === 0) {
+          return room1.name.localeCompare(room2.name);
+        }
+        return has;
+      }
+      return score;
+    });
 };
 
 interface RoomsPage {

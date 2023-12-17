@@ -13,7 +13,7 @@ import { useState } from 'react';
 import TimeSelector from '@/components/Timepicker';
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState("main");
+  const [currentPage, setCurrentPage] = useState('main');
   const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const [selectedSlots, setSelectedSlots] = useState<Set<number>>(
@@ -24,6 +24,7 @@ export default function Home() {
     utilities: new Set<string>(['Any']),
     buildings: new Set<string>(['Any']),
   });
+  const [selectedRoom, setSelectedRoom] = useState({});
 
   let next = undefined,
     back = undefined,
@@ -60,7 +61,13 @@ export default function Home() {
     case 'rooms':
       back = 'filters';
       stage = 2;
-      renderedPage = <RoomsPage filters={filters} setCurrentPage={setCurrentPage}></RoomsPage>;
+      renderedPage = (
+        <RoomsPage
+        filters={filters}
+        setSelectedRoom={setSelectedRoom}
+          setCurrentPage={setCurrentPage}
+        ></RoomsPage>
+      );
       break;
     case 'confirm':
       back = 'rooms';
