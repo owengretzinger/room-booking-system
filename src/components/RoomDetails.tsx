@@ -44,7 +44,9 @@ export default function RoomDetails({
       <button
         disabled={!isLoggedIn}
         className={`${
-          isLoggedIn ? "bg-amber-350" : "bg-slate-500"
+          isLoggedIn
+            ? "bg-amber-350"
+            : "bg-yellow opacity-40 cursor-not-allowed"
         } text-white rounded-lg w-full py-2 my-5`}
         onClick={() => {
           setCurrentPage("done");
