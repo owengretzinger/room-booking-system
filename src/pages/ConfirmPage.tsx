@@ -1,15 +1,34 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
-import RoomDetails from "@/components/RoomDetails";
+import RoomDetails from '@/components/RoomDetails';
 
 let counter = 0;
 
 interface ConfirmPage {
+  room: {
+    score: number;
+    has: string[];
+    missing: string[];
+    matchingCapacity: boolean;
+    name: string;
+    capacity: number;
+    utilities: Set<string>;
+    building: string;
+  };
+  date: string;
+  startTime: string;
+  endTime: string;
   setCurrentPage: Function;
 }
 
-export default function ConfirmPage({ setCurrentPage }: ConfirmPage) {
+export default function ConfirmPage({
+  room,
+  date,
+  startTime,
+  endTime,
+  setCurrentPage,
+}: ConfirmPage) {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [email, setEmail] = React.useState<string[]>([]);
 
@@ -70,7 +89,7 @@ export default function ConfirmPage({ setCurrentPage }: ConfirmPage) {
                   <button
                     className="text-red rounded-md outline-3 outline-dashed w-[80%] my-2 py-1 px-2"
                     onClick={() => {
-                      setEmail([...email, ""]);
+                      setEmail([...email, '']);
                       counter++;
                     }}
                   >
@@ -91,6 +110,10 @@ export default function ConfirmPage({ setCurrentPage }: ConfirmPage) {
           )}
         </div>
         <RoomDetails
+          room={room}
+          date={date}
+          startTime={startTime}
+          endTime={endTime}
           isLoggedIn={isLoggedIn}
           setCurrentPage={setCurrentPage}
           isConfirmed={false}
