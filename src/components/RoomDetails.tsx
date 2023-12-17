@@ -4,11 +4,13 @@ import React from "react";
 interface RoomDetails {
   isLoggedIn: boolean;
   setCurrentPage: Function;
+  isConfirmed: boolean;
 }
 
 export default function RoomDetails({
   isLoggedIn,
   setCurrentPage,
+  isConfirmed,
 }: RoomDetails) {
   return (
     <div className="flex flex-col items-start">
@@ -48,7 +50,7 @@ export default function RoomDetails({
           setCurrentPage("done");
         }}
       >
-        Confirm
+        {isConfirmed ? "Cancel Reservation" : "Confirm"}
       </button>
     </div>
   );
