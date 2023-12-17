@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
 import '../styles/day-picker.css';
 
-import TimePicker from '../components/Timeslots';
+import TimePicker from '../components/Timepicker';
 
 interface DatetimePage {
   setCurrentPage: Function;
