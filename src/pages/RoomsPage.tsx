@@ -82,9 +82,9 @@ const getRooms = (filters: {
   matchedRooms = matchedRooms.map((room) => {
     const buildingMatches = filters.buildings.has(room.building);
     if (buildingMatches || filters.buildings.has('Any')) {
-      return { ...room, score: 1, has: [room.building] };
+      return { ...room, score: 1 / 3, has: [room.building] };
     }
-    return { ...room, score: 0.5, missing: [room.building] };
+    return { ...room, score: 0, missing: [room.building] };
   });
 
   // Check utilities
@@ -100,10 +100,8 @@ const getRooms = (filters: {
         missing = [...missing, utility];
       }
     });
-    const score = filters.utilities.has('Any')
-      ? 1
-      : has.length / filters.utilities.size;
-    return { ...room, has, missing, score: room.score * score };
+    const score = has.length / filters.utilities.size / 3;
+    return { ...room, has, missing, score: room.score + score };
   });
 
   // Check capacity
@@ -136,14 +134,20 @@ const getRooms = (filters: {
     return {
       ...room,
       matchingCapacity: capacityMatches,
-      score: room.score * (capacityMatches ? 1 : 0.5),
+      score: room.score + (capacityMatches ? 1 / 3 : 0),
     };
   });
+
+  return matchedRooms
+    .filter((room) => room.score >= 0.5)
+    .sort((room1, room2) => room2.score - room1.score);
 };
 
 export default function RoomsPage({ filters, setCurrentPage }: RoomsPage) {
   const filteredRooms = getRooms(filters);
-  
+
+  console.log(filteredRooms);
+
   return (
     <>
       <main className="flex flex-col items-center justify-between px-2">
