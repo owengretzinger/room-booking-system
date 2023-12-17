@@ -54,7 +54,7 @@ export default function Timeslots({ nextButtonDisabled, setNextButtonDisabled }:
       selectedSlots.delete(key);
       // if we deselect in a block of slots, deselect everything after it too
       if (selectedSlots.has(key - 1) || selectedSlots.has(key + 1)) {
-        for (let i = key; i < timeslots.length; i++) {
+        for (let i = key; i <= timeslots.length; i++) {
           if (selectedSlots.has(i)) {
             selectedSlots.delete(i);
           }

@@ -11,7 +11,7 @@ import RoomsPage from "../pages/RoomsPage";
 
 
 import { useState } from 'react';
-import TimeSelector from '@/components/Timeslots';
+import TimeSelector from '@/components/Timepicker';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState('main');
