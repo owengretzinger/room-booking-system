@@ -90,7 +90,11 @@ export default function ConfirmPage({ setCurrentPage }: ConfirmPage) {
             </button>
           )}
         </div>
-        <RoomDetails isLoggedIn={isLoggedIn} setCurrentPage={setCurrentPage} />
+        <RoomDetails
+          isLoggedIn={isLoggedIn}
+          setCurrentPage={setCurrentPage}
+          isConfirmed={false}
+        />
       </main>
     </>
   );
