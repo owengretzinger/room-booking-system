@@ -37,26 +37,26 @@ export default function Header({
   setCurrentPage,
   reset,
   nextButtonDisabled,
-  setNextButtonDisabled
+  setNextButtonDisabled,
 }: Header) {
   return (
     <>
       <header className="w-screen flex items-center justify-center flex-col p-5 gap-5 select-none flex-wrap fixed bg-white z-50 border-b-4 border-red">
         {/* Back, Title, Next */}
         <nav className="flex-auto flex w-full text-red gap-1 sm:gap-3 lg:gap-5">
-
-
           <div className="flex-1 max-w-[12rem] min-w-[4rem]">
-            {back &&
+            {back && (
               <button
-                onClick={() => setCurrentPage(back)}
+                onClick={() => {
+                  if (back === 'main') reset();
+                  setCurrentPage(back);
+                }}
                 className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl  border-4 rounded-xl border-red h-10 md:h-12 lg:h-16 w-full"
               >
                 Back
               </button>
-            }
+            )}
           </div>
-
 
           <button
             onClick={() => {
@@ -69,50 +69,53 @@ export default function Header({
             McMaster Room Booking
           </button>
 
-
           <div className="flex-1 max-w-[12rem] min-w-[4rem]"></div>
-          
         </nav>
         {/* Navigation Bar */}
         <nav className="flex w-full lg:w-3/4 h-10 lg:h-16">
           {stage !== undefined
             ? states.map(({ state, page }, i) => {
-              const clickable = i < stage;
-              const onClick =
-                i < stage ? { onClick: () => setCurrentPage(page) } : {};
-              return (
-                <button
-                  key={i}
-                  {...onClick}
-                  className={`${i <= stage ? 'bg-red' : 'bg-neutral-300'
-                    } text-white text-[0.5rem] sm:text-xs lg:text-base box-border flex-auto w-24 ${i === 0
-                      ? styles['first-arrow']
-                      : i === states.length - 1
+                const clickable = i < stage;
+                const onClick =
+                  i < stage ? { onClick: () => setCurrentPage(page) } : {};
+                return (
+                  <button
+                    key={i}
+                    {...onClick}
+                    className={`${
+                      i <= stage ? 'bg-red' : 'bg-neutral-300'
+                    } text-white text-[0.5rem] sm:text-xs lg:text-base box-border flex-auto w-24 ${
+                      i === 0
+                        ? styles['first-arrow']
+                        : i === states.length - 1
                         ? styles['last-arrow']
                         : styles['middle-arrow']
                     } flex items-center justify-center`}
-                  disabled={!clickable}
-                >
-                  {state}
-                </button>
-              );
-            })
+                    disabled={!clickable}
+                  >
+                    {state}
+                  </button>
+                );
+              })
             : null}
         </nav>
       </header>
 
-      {next && <div className="w-screen h-screen fixed flex justify-end items-end pointer-events-none z-50">
-        <button
-          onClick={() => setCurrentPage(next)}
-          disabled={nextButtonDisabled}
-          // make cursor change to x when disabled
+      {next && (
+        <div className="w-screen h-screen fixed flex justify-end items-end pointer-events-none z-50">
+          <button
+            onClick={() => setCurrentPage(next)}
+            disabled={nextButtonDisabled}
+            // make cursor change to x when disabled
 
-
-          className={`flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-yellow rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem] m-20 pointer-events-auto ${nextButtonDisabled ? "opacity-40 cursor-not-allowed" : ""}`}
-        >
-          Next
-        </button>
-      </div>}
+            className={`flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-yellow rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem] m-20 pointer-events-auto ${
+              nextButtonDisabled ? 'opacity-40 cursor-not-allowed' : ''
+            }`}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </>
   );
 }

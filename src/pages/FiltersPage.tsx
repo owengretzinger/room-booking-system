@@ -1,36 +1,37 @@
 import FilterButtons from '../components/FilterButtons';
 import Image from 'next/image';
 
+// Capacity Options
+const capacity = ['Any', '1-4', '5-9', '10-20', '>20'];
+
+// Utilities Options
+const utilities = [
+  'Any',
+  'Projector',
+  'Whiteboard',
+  'Blackboard',
+  'Windows',
+  'Computer',
+];
+// Building Options
+const building = [
+  'Any',
+  'Mills',
+  'Thode',
+  'Gerald Hatch Centre',
+  'Health Sciences Library',
+];
+
 interface FiltersPage {
-  setCurrentPage: Function;
+  filters: {
+    capacity: Set<string>;
+    utilities: Set<string>;
+    buildings: Set<string>;
+  };
+  setFilters: Function;
 }
 
-export default function FiltersPage({ setCurrentPage }: FiltersPage) {
-  // Capacity Options
-  const capacity = [
-    { key: 0, name: 'Any' },
-    { key: 1, name: '1-4' },
-    { key: 2, name: '5-9' },
-    { key: 3, name: '10-20' },
-    { key: 4, name: '>20' },
-  ];
-  // Utilities Options
-  const utilities = [
-    { key: 0, name: '' },
-    { key: 1, name: 'Projector' },
-    { key: 2, name: 'Whiteboard' },
-    { key: 3, name: 'Blackboard' },
-    { key: 4, name: 'Windows' },
-    { key: 5, name: 'Computer' },
-  ];
-  // Building Options
-  const building = [
-    { key: 0, name: 'Any' },
-    { key: 1, name: 'Mills' },
-    { key: 2, name: 'Thode' },
-    { key: 3, name: 'Gerald Hatch Centre' },
-    { key: 4, name: 'Health Sciences Library' },
-  ];
+export default function FiltersPage({ filters, setFilters }: FiltersPage) {
   return (
     <>
       <main className="flex justify-center">
@@ -50,7 +51,13 @@ export default function FiltersPage({ setCurrentPage }: FiltersPage) {
             </div>
             <div className="flex flex-row justify-start flex-wrap">
               {/* {displayCapacity} */}
-              <FilterButtons items={capacity} />
+              <FilterButtons
+                filters={filters.capacity}
+                setFilters={(newCapacities: Set<string>) =>
+                  setFilters({ ...filters, capacity: newCapacities })
+                }
+                items={capacity}
+              />
             </div>
           </div>
 
@@ -64,7 +71,13 @@ export default function FiltersPage({ setCurrentPage }: FiltersPage) {
             </div>
             <div className="flex flex-row justify-start flex-wrap">
               {/* {displayUtilities} */}
-              <FilterButtons items={utilities} />
+              <FilterButtons
+                filters={filters.utilities}
+                setFilters={(newUtilities: Set<string>) =>
+                  setFilters({ ...filters, utilities: newUtilities })
+                }
+                items={utilities}
+              />
             </div>
           </div>
 
@@ -83,7 +96,13 @@ export default function FiltersPage({ setCurrentPage }: FiltersPage) {
             </div>
             <div className="flex flex-row justify-start flex-wrap">
               {/* {displayBuilding} */}
-              <FilterButtons items={building} />
+              <FilterButtons
+                filters={filters.buildings}
+                setFilters={(newBuildings: Set<string>) =>
+                  setFilters({ ...filters, buildings: newBuildings })
+                }
+                items={building}
+              />
             </div>
           </div>
         </div>

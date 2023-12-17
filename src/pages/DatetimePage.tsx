@@ -1,6 +1,5 @@
-"use client";
+'use client';
 
-import { useState } from 'react';
 import { format } from 'date-fns';
 
 import { DayPicker } from 'react-day-picker';
@@ -9,14 +8,23 @@ import '../styles/day-picker.css';
 import TimePicker from '../components/Timepicker';
 
 interface DatetimePage {
-  setCurrentPage: Function;
+  selectedDay: Date;
+  setSelectedDay: Function;
+  selectedSlots: Set<number>;
+  setSelectedSlots: Function;
   nextButtonDisabled: boolean;
   setNextButtonDisabled: Function;
 }
 
-export default function Datetime({setCurrentPage,nextButtonDisabled,setNextButtonDisabled}: DatetimePage) {
+export default function Datetime({
+  selectedDay,
+  setSelectedDay,
+  selectedSlots,
+  setSelectedSlots,
+  nextButtonDisabled,
+  setNextButtonDisabled,
+}: DatetimePage) {
   const today = new Date();
-  const [selectedDay, setSelected] = useState<Date | undefined>(today);
   const footer = selectedDay ? (
     <p>You selected {format(selectedDay, 'PPP')}.</p>
   ) : (
@@ -31,13 +39,17 @@ export default function Datetime({setCurrentPage,nextButtonDisabled,setNextButto
           mode="single"
           required
           selected={selectedDay}
-          onSelect={setSelected}
+          onSelect={(day) => setSelectedDay(day)}
           footer={footer}
           disabled={{ before: today }}
         />
-        <TimePicker nextButtonDisabled={nextButtonDisabled} setNextButtonDisabled={setNextButtonDisabled} />
+        <TimePicker
+          selectedSlots={selectedSlots}
+          setSelectedSlots={setSelectedSlots}
+          nextButtonDisabled={nextButtonDisabled}
+          setNextButtonDisabled={setNextButtonDisabled}
+        />
       </main>
     </>
   );
 }
-
