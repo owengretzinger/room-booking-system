@@ -20,6 +20,8 @@ interface Header {
   reset: Function;
   stage: number | undefined;
   setCurrentPage: Function;
+  nextButtonDisabled: boolean;
+  setNextButtonDisabled: Function;
 }
 
 /**
@@ -34,6 +36,8 @@ export default function Header({
   stage,
   setCurrentPage,
   reset,
+  nextButtonDisabled,
+  setNextButtonDisabled
 }: Header) {
   return (
     <>
@@ -100,7 +104,11 @@ export default function Header({
       {next && <div className="w-screen h-screen fixed flex justify-end items-end pointer-events-none z-50">
         <button
           onClick={() => setCurrentPage(next)}
-          className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-amber-350 rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem] m-20 pointer-events-auto"
+          disabled={nextButtonDisabled}
+          // make cursor change to x when disabled
+
+
+          className={`flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-yellow rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem] m-20 pointer-events-auto ${nextButtonDisabled ? "opacity-40 cursor-not-allowed" : ""}`}
         >
           Next
         </button>

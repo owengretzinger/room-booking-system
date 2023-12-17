@@ -9,10 +9,13 @@ import FiltersPage from "../pages/FiltersPage";
 import MainPage from "../pages/MainPage";
 import RoomsPage from "../pages/RoomsPage";
 
-import { useState } from "react";
+
+import { useState } from 'react';
+import TimeSelector from '@/components/Timeslots';
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState("main");
+  const [currentPage, setCurrentPage] = useState('main');
+  const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
 
   let next = undefined,
     back = undefined,
@@ -28,7 +31,7 @@ export default function Home() {
       next = "filters";
       stage = 0;
       renderedPage = (
-        <DatetimePage setCurrentPage={setCurrentPage}></DatetimePage>
+        <DatetimePage setCurrentPage={setCurrentPage} nextButtonDisabled={nextButtonDisabled} setNextButtonDisabled={setNextButtonDisabled}></DatetimePage>
       );
       break;
     case "filters":
@@ -70,18 +73,20 @@ export default function Home() {
     reset: () => {
       // reset filters, datetime, etc.
     },
+    nextButtonDisabled,
+    setNextButtonDisabled
   };
 
   return (
     <>
-      {currentPage === "main" ? (
-        renderedPage
-      ) : (
+      {/* <TimeSelector /> */}
+      {currentPage === 'main' || currentPage === 'done' ?
+        renderedPage :
         <>
           <Header {...headerProps}></Header>
           <div className="pt-52 relative">{renderedPage}</div>
         </>
-      )}
+      }
     </>
   );
 }
