@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const timeslots = [
   { key: 1, name: "8:00 AM - 8:30 AM" },
@@ -51,8 +51,8 @@ export default function Timeslots({
   setNextButtonDisabled,
 }: Timeslots) {
   const [dragOperation, setDragOperation] = useState<
-    "Selecting" | "Deselecting" | "None"
-  >("None");
+    'Selecting' | 'Deselecting' | 'None'
+  >('None');
   const [dragStartIndex, setDragStartIndex] = useState<number>(-1);
 
   // some pretty ugly logic...
@@ -62,7 +62,7 @@ export default function Timeslots({
     setDragStartIndex(key);
     // if we're clicking on a selected slot, deselect it
     if (selectedSlots.has(key)) {
-      setDragOperation("Deselecting");
+      setDragOperation('Deselecting');
       selectedSlots.delete(key);
       // if we deselect in a block of slots, deselect everything after it too
       if (selectedSlots.has(key - 1) || selectedSlots.has(key + 1)) {
@@ -75,7 +75,7 @@ export default function Timeslots({
     }
     // if we're clicking on an unselected slot, select it
     else {
-      setDragOperation("Selecting");
+      setDragOperation('Selecting');
       // if there's already a block of selected slots, unselect them and select this one
       if (!selectedSlots.has(key - 1) && !selectedSlots.has(key + 1)) {
         selectedSlots.clear();
@@ -99,10 +99,10 @@ export default function Timeslots({
       i <= Math.max(dragStartIndex, key);
       i++
     ) {
-      if (dragOperation === "Selecting" && !selectedSlots.has(i)) {
+      if (dragOperation === 'Selecting' && !selectedSlots.has(i)) {
         selectedSlots.add(i);
       }
-      if (dragOperation === "Deselecting" && selectedSlots.has(i)) {
+      if (dragOperation === 'Deselecting' && selectedSlots.has(i)) {
         selectedSlots.delete(i);
       }
     }
@@ -112,11 +112,11 @@ export default function Timeslots({
   // stop dragging when we let go of the mouse or it leaves the timeslots div
   const onMouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
-    setDragOperation("None");
+    setDragOperation('None');
   };
   const onMouseLeave = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
-    setDragOperation("None");
+    setDragOperation('None');
   };
   // if we don't include this, the browser will select text and everything will get messed up
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -140,7 +140,7 @@ export default function Timeslots({
           <div
             key={slot.key}
             className={`relative border-2 border-red flex-1 ${
-              selectedSlots.has(slot.key) ? "bg-yellow" : ""
+              selectedSlots.has(slot.key) ? 'bg-yellow' : ''
             }`}
             onMouseEnter={() => handleDrag(slot.key)}
             onMouseDown={() => handleMouseDown(slot.key)}
@@ -154,7 +154,7 @@ export default function Timeslots({
         ))}
       </div>
       {selectedSlots.size == 0
-        ? "Select a time slot"
+        ? 'Select a time slot'
         : `You selected ${indexToTime(
             Math.min(...Array.from(selectedSlots)) - 1
           )} to ${indexToTime(Math.max(...Array.from(selectedSlots)))}`}
@@ -164,7 +164,7 @@ export default function Timeslots({
 }
 
 function indexToTime(i: number) {
-  return `${(Math.floor(i / 2 + 7) % 12) + 1}:${i % 2 == 0 ? "0" : "3"}0${
-    i / 2 + 8 <= 11 ? "AM" : "PM"
+  return `${(Math.floor(i / 2 + 7) % 12) + 1}:${i % 2 == 0 ? '0' : '3'}0${
+    i / 2 + 8 <= 11 ? 'AM' : 'PM'
   }`;
 }
