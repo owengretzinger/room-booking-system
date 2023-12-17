@@ -1,56 +1,65 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+interface FilterButtons {
+  filters: Set<string>;
+  setFilters: Function;
+  items: Array<string>;
+}
 
-
-export default function FilterButtons({ items }: { items: { key: number, name: string }[] }) {
-  const [selectedButtons, setSelectedButtons] = useState(new Set<number>([0]));
-
+export default function FilterButtons({
+  filters,
+  setFilters,
+  items,
+}: FilterButtons) {
   // note: need to create a new set to trigger rerender for any changes
-  const handleClick = (key: number) => {
+  const handleClick = (name: string) => {
     // if "any" is selected, deselect everything else
-    if (key === 0) {
-      setSelectedButtons(new Set([0]));
+    if (name === 'Any') {
+      setFilters(new Set([name]));
       return;
     }
 
     // already selected, deselect
-    if (selectedButtons.has(key)) {
-      const updatedButtons = new Set(selectedButtons);
-      updatedButtons.delete(key);
+    if (filters.has(name)) {
+      const updatedButtons = new Set(filters);
+      updatedButtons.delete(name);
       // if everything is unselected, select any
       if (updatedButtons.size === 0) {
-        setSelectedButtons(new Set([0]));
+        setFilters(new Set(['Any']));
       }
       // otherwise just unselect
       else {
-        setSelectedButtons(updatedButtons);
+        setFilters(updatedButtons);
       }
     }
-    // not selected, select 
+    // not selected, select
     else {
-      const updatedButtons = new Set(selectedButtons);
-      updatedButtons.add(key);
-      if (updatedButtons.has(0)) updatedButtons.delete(0);
-      setSelectedButtons(updatedButtons);
+      const updatedButtons = new Set(filters);
+      updatedButtons.add(name);
+      updatedButtons.delete('Any');
+      setFilters(updatedButtons);
     }
   };
 
   return (
     <>
       {/* Capacity*/}
-      {items.map((item) => (item.name !== "" &&
-        <button
-          key={item.key}
-          onClick={() => handleClick(item.key)}
-          className={`${selectedButtons.has(item.key)
-            ? "text-white bg-red"
-            : "text-red outline outline-3"
-            }  rounded-md px-4 py-2 m-2`}
-        >
-          <span>{item.name}</span>
-        </button>
-      ))}
+      {items.map(
+        (item, i) =>
+          item !== '' && (
+            <button
+              key={i}
+              onClick={() => handleClick(item)}
+              className={`${
+                filters.has(item)
+                  ? 'text-white bg-red'
+                  : 'text-red outline outline-3'
+              }  rounded-md px-4 py-2 m-2`}
+            >
+              <span>{item}</span>
+            </button>
+          )
+      )}
     </>
-  )
+  );
 }
