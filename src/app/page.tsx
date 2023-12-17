@@ -15,6 +15,15 @@ import TimeSelector from "@/components/Timepicker";
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("main");
   const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
+  const [selectedDay, setSelectedDay] = useState<Date>(new Date());
+  const [selectedSlots, setSelectedSlots] = useState<Set<number>>(
+    new Set<number>([])
+  );
+  const [filters, setFilters] = useState({
+    capacity: new Set<string>(["Any"]),
+    utilities: new Set<string>(["Any"]),
+    buildings: new Set<string>(["Any"]),
+  });
 
   let next = undefined,
     back = undefined,
@@ -31,7 +40,10 @@ export default function Home() {
       stage = 0;
       renderedPage = (
         <DatetimePage
-          setCurrentPage={setCurrentPage}
+          selectedDay={selectedDay}
+          setSelectedDay={setSelectedDay}
+          selectedSlots={selectedSlots}
+          setSelectedSlots={setSelectedSlots}
           nextButtonDisabled={nextButtonDisabled}
           setNextButtonDisabled={setNextButtonDisabled}
         ></DatetimePage>
@@ -42,7 +54,7 @@ export default function Home() {
       next = "rooms";
       stage = 1;
       renderedPage = (
-        <FiltersPage setCurrentPage={setCurrentPage}></FiltersPage>
+        <FiltersPage filters={filters} setFilters={setFilters}></FiltersPage>
       );
       break;
     case "rooms":
@@ -74,7 +86,13 @@ export default function Home() {
     stage,
     setCurrentPage,
     reset: () => {
-      // reset filters, datetime, etc.
+      setSelectedDay(new Date());
+      setSelectedSlots(new Set<number>([]));
+      setFilters({
+        capacity: new Set<string>(["Any"]),
+        utilities: new Set<string>(["Any"]),
+        buildings: new Set<string>(["Any"]),
+      });
     },
     nextButtonDisabled,
     setNextButtonDisabled,

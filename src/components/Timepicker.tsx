@@ -37,14 +37,19 @@ const timeslots = [
   { key: 32, name: "11:30 PM - 12:00 AM" },
 ];
 
-export default function Timeslots({
-  nextButtonDisabled,
-  setNextButtonDisabled,
-}: {
+interface Timeslots {
+  selectedSlots: Set<number>;
+  setSelectedSlots: Function;
   nextButtonDisabled: boolean;
   setNextButtonDisabled: Function;
-}) {
-  const [selectedSlots, setSelectedSlots] = useState(new Set<number>([]));
+}
+
+export default function Timeslots({
+  selectedSlots,
+  setSelectedSlots,
+  nextButtonDisabled,
+  setNextButtonDisabled,
+}: Timeslots) {
   const [dragOperation, setDragOperation] = useState<
     "Selecting" | "Deselecting" | "None"
   >("None");
