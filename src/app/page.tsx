@@ -60,7 +60,7 @@ export default function Home() {
     case 'rooms':
       back = 'filters';
       stage = 2;
-      renderedPage = <RoomsPage setCurrentPage={setCurrentPage}></RoomsPage>;
+      renderedPage = <RoomsPage filters={filters} setCurrentPage={setCurrentPage}></RoomsPage>;
       break;
     case 'confirm':
       back = 'rooms';
