@@ -9,11 +9,12 @@ import FiltersPage from '../pages/FiltersPage';
 import MainPage from '../pages/MainPage';
 import RoomsPage from '../pages/RoomsPage';
 
+import { format } from 'date-fns';
+
 import { useState } from 'react';
-import TimeSelector from '@/components/Timepicker';
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState("main");
+  const [currentPage, setCurrentPage] = useState('main');
   const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const [selectedSlots, setSelectedSlots] = useState<Set<number>>(
@@ -23,6 +24,25 @@ export default function Home() {
     capacity: new Set<string>(['Any']),
     utilities: new Set<string>(['Any']),
     buildings: new Set<string>(['Any']),
+  });
+  const [selectedRoom, setSelectedRoom] = useState<{
+    score: number;
+    has: string[];
+    missing: string[];
+    matchingCapacity: boolean;
+    name: string;
+    capacity: number;
+    utilities: Set<string>;
+    building: string;
+  }>({
+    score: 0,
+    has: [],
+    missing: [],
+    matchingCapacity: true,
+    name: '',
+    capacity: 0,
+    utilities: new Set<string>([]),
+    building: '',
   });
 
   let next = undefined,
@@ -60,13 +80,25 @@ export default function Home() {
     case 'rooms':
       back = 'filters';
       stage = 2;
-      renderedPage = <RoomsPage setCurrentPage={setCurrentPage}></RoomsPage>;
+      renderedPage = (
+        <RoomsPage
+          filters={filters}
+          setSelectedRoom={setSelectedRoom}
+          setCurrentPage={setCurrentPage}
+        ></RoomsPage>
+      );
       break;
     case 'confirm':
       back = 'rooms';
       stage = 3;
       renderedPage = (
-        <ConfirmPage setCurrentPage={setCurrentPage}></ConfirmPage>
+        <ConfirmPage
+          room={selectedRoom}
+          date={format(selectedDay, 'EEEE, LLLL d, yyyy')}
+          startTime={indexToTime(Math.min(...Array.from(selectedSlots)) - 1)}
+          endTime={indexToTime(Math.max(...Array.from(selectedSlots)))}
+          setCurrentPage={setCurrentPage}
+        ></ConfirmPage>
       );
       break;
     case 'done':
@@ -111,4 +143,10 @@ export default function Home() {
       )}
     </>
   );
+}
+
+function indexToTime(i: number) {
+  return `${(Math.floor(i / 2 + 7) % 12) + 1}:${i % 2 == 0 ? '0' : '3'}0${
+    i / 2 + 8 <= 11 ? 'AM' : 'PM'
+  }`;
 }
