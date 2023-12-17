@@ -86,7 +86,13 @@ export default function Home() {
     stage,
     setCurrentPage,
     reset: () => {
-      // reset filters, datetime, etc.
+      setSelectedDay(new Date());
+      setSelectedSlots(new Set<number>([]));
+      setFilters({
+        capacity: new Set<string>(['Any']),
+        utilities: new Set<string>(['Any']),
+        buildings: new Set<string>(['Any']),
+      });
     },
     nextButtonDisabled,
     setNextButtonDisabled,
