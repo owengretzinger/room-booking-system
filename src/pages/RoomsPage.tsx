@@ -54,10 +54,96 @@ const rooms = [
 ];
 
 interface RoomsPage {
+  filters: {
+    capacity: Set<string>;
+    utilities: Set<string>;
+    buildings: Set<string>;
+  };
   setCurrentPage: Function;
 }
 
-export default function RoomsPage({ setCurrentPage }: RoomsPage) {
+const getRooms = (filters: {
+  capacity: Set<string>;
+  utilities: Set<string>;
+  buildings: Set<string>;
+}) => {
+  // Assign rooms with score and initialize empty has and missing arrays
+  let matchedRooms = rooms.map((room) => {
+    return {
+      ...room,
+      score: 0,
+      has: new Array<string>(),
+      missing: new Array<string>(),
+      matchingCapacity: false,
+    };
+  });
+
+  // Check buildings
+  matchedRooms = matchedRooms.map((room) => {
+    const buildingMatches = filters.buildings.has(room.building);
+    if (buildingMatches || filters.buildings.has('Any')) {
+      return { ...room, score: 1, has: [room.building] };
+    }
+    return { ...room, score: 0.5, missing: [room.building] };
+  });
+
+  // Check utilities
+  matchedRooms = matchedRooms.map((room) => {
+    let has = new Array<string>();
+    let missing = new Array<string>();
+    room.utilities.forEach((utility) => {
+      const utilityMatches =
+        filters.utilities.has(utility) || filters.utilities.has('Any');
+      if (utilityMatches) {
+        has = [...has, utility];
+      } else {
+        missing = [...missing, utility];
+      }
+    });
+    const score = filters.utilities.has('Any')
+      ? 1
+      : has.length / filters.utilities.size;
+    return { ...room, has, missing, score: room.score * score };
+  });
+
+  // Check capacity
+  matchedRooms = matchedRooms.map((room) => {
+    let capacityMatches = false;
+    filters.capacity.forEach((capacity) => {
+      switch (capacity) {
+        case 'Any':
+          capacityMatches = true;
+          break;
+        case '1-4':
+          capacityMatches =
+            capacityMatches || (room.capacity >= 1 && room.capacity <= 4);
+          break;
+        case '5-9':
+          capacityMatches =
+            capacityMatches || (room.capacity >= 5 && room.capacity <= 9);
+          break;
+        case '10-20':
+          capacityMatches =
+            capacityMatches || (room.capacity >= 10 && room.capacity <= 20);
+          break;
+        case '>20':
+          capacityMatches = capacityMatches || room.capacity > 20;
+          break;
+        default:
+          break;
+      }
+    });
+    return {
+      ...room,
+      matchingCapacity: capacityMatches,
+      score: room.score * (capacityMatches ? 1 : 0.5),
+    };
+  });
+};
+
+export default function RoomsPage({ filters, setCurrentPage }: RoomsPage) {
+  const filteredRooms = getRooms(filters);
+  
   return (
     <>
       <main className="flex flex-col items-center justify-between px-2">
