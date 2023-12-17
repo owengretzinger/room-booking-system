@@ -10,8 +10,9 @@ const utilities = [
   'Projector',
   'Whiteboard',
   'Blackboard',
-  'Windows',
   'Computer',
+  'Outlets',
+  'TV',
 ];
 // Building Options
 const building = [
