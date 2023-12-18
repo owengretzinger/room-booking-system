@@ -2,20 +2,12 @@
 import React, { useState } from "react";
 
 import RoomDetails from "@/components/RoomDetails";
+import { Room } from "@/components/RoomCard";
 
 let counter = 0;
 
 interface ConfirmPage {
-  room: {
-    score: number;
-    has: string[];
-    missing: string[];
-    matchingCapacity: boolean;
-    name: string;
-    capacity: number;
-    utilities: Set<string>;
-    building: string;
-  };
+  room: Room;
   date: string;
   startTime: string;
   endTime: string;
@@ -64,7 +56,7 @@ export default function ConfirmPage({
                 Email Confirmation will be sent to:
               </h1>
               <h1 className="text-2xl font-bold text-slate-500">
-                doej@mcmaster.ca
+                YourMacID@mcmaster.ca
               </h1>
               <h1 className="text-2xl font-bold text-red mt-10">
                 Optionally add group member emails to send them confirmation & directions:

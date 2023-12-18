@@ -1,10 +1,17 @@
 import RoomCard from '@/components/RoomCard';
 
+export const utilities = ['Projector', 'Whiteboard', 'Blackboard', 'Computer'] as const;
+export type Utility = typeof utilities[number];
+
+export const buildings = ['Any', 'Mills Memorial Library', 'Thode Library', 'Gerald Hatch Centre', 'Health Sciences Library'] as const;
+export type Building = typeof buildings[number];
+
+
 const roomMaker = (
   name: string,
   capacity: number,
-  utilities: Set<string>,
-  building: string
+  utilities: Set<Utility>,
+  building: Building
 ) => {
   return { name, capacity, utilities, building };
 };
@@ -16,144 +23,143 @@ const hsl = 'Health Sciences Library';
 
 const rooms = [
   // Hatch
-  roomMaker('H201', 6, new Set(['TV', 'Outlets', 'Whiteboard']), ghc),
-  roomMaker('H203', 6, new Set(['TV', 'Outlets', 'Whiteboard']), ghc),
-  roomMaker('H204A', 12, new Set(['TV', 'Outlets', 'Whiteboard']), ghc),
-  roomMaker('H204B', 12, new Set(['TV', 'Outlets', 'Whiteboard']), ghc),
+  roomMaker('H201', 6, new Set<Utility>(['Projector']), ghc),
+  roomMaker('H203', 6, new Set<Utility>(['Projector', 'Whiteboard']), ghc),
+  roomMaker('H204A', 12, new Set<Utility>(['Projector', 'Whiteboard']), ghc),
+  roomMaker('H204B', 12, new Set<Utility>(['Projector', 'Whiteboard']), ghc),
   // Mills
-  roomMaker('L310/A', 6, new Set(['Whiteboard', 'Outlets']), mills),
-  roomMaker('L310/B', 6, new Set(['Whiteboard', 'Outlets']), mills),
-  roomMaker('L310/C', 6, new Set(['Whiteboard', 'Outlets']), mills),
-  roomMaker('L310/D', 8, new Set(['Whiteboard', 'Outlets']), mills),
-  roomMaker('L310/E', 8, new Set(['Whiteboard', 'Outlets']), mills),
+  roomMaker('L310/A', 6, new Set<Utility>(['Whiteboard',]), mills),
+  roomMaker('L310/B', 6, new Set<Utility>(['Whiteboard',]), mills),
+  roomMaker('L310/C', 6, new Set<Utility>(['Whiteboard',]), mills),
+  roomMaker('L310/D', 8, new Set<Utility>(['Whiteboard',]), mills),
+  roomMaker('L310/E', 8, new Set<Utility>(['Whiteboard',]), mills),
   // Thode
-  roomMaker('Group Study 1', 6, new Set(['Outlets']), thode),
-  roomMaker('Group Study 2', 6, new Set(['Outlets']), thode),
-  roomMaker('Group Study 3', 6, new Set(['Outlets']), thode),
-  roomMaker('Group Study 6', 6, new Set(['Outlets']), thode),
-  roomMaker('Group Study 7', 6, new Set(['Outlets']), thode),
-  roomMaker('Group Study 8', 6, new Set(['Outlets']), thode),
-  roomMaker('Group Study 9', 6, new Set(['Outlets']), thode),
-  roomMaker('Group Study 10', 6, new Set(['Outlets']), thode),
-  roomMaker('ITM Room - 102', 2, new Set([]), thode),
+  roomMaker('Group Study 1', 6, new Set<Utility>([]), thode),
+  roomMaker('Group Study 2', 6, new Set<Utility>([]), thode),
+  roomMaker('Group Study 3', 6, new Set<Utility>([]), thode),
+  roomMaker('Group Study 6', 6, new Set<Utility>([]), thode),
+  roomMaker('Group Study 7', 6, new Set<Utility>([]), thode),
+  roomMaker('Group Study 8', 6, new Set<Utility>([]), thode),
+  roomMaker('Group Study 9', 6, new Set<Utility>([]), thode),
+  roomMaker('Group Study 10', 6, new Set<Utility>([]), thode),
+  roomMaker('ITM Room - 102', 2, new Set<Utility>([]), thode),
   // HSL
-  roomMaker('1B14', 10, new Set(['Outlets']), hsl),
-  roomMaker('1B15', 10, new Set(['Outlets']), hsl),
-  roomMaker('1B16', 10, new Set(['Outlets']), hsl),
-  roomMaker('1B17', 10, new Set(['Outlets', 'TV']), hsl),
-  roomMaker('1B18', 10, new Set(['Outlets']), hsl),
-  roomMaker('1B19', 10, new Set(['Outlets']), hsl),
-  roomMaker('1B20', 22, new Set(['Outlets', 'TV']), hsl),
-  roomMaker('1B26', 10, new Set(['Outlets']), hsl),
-  roomMaker('1B27', 10, new Set(['Outlets']), hsl),
-  roomMaker('1B4', 10, new Set(['Outlets']), hsl),
-  roomMaker('1B5', 10, new Set(['Outlets']), hsl),
-  roomMaker('1B6', 10, new Set(['Outlets']), hsl),
-  roomMaker('2B21', 9, new Set(['Outlets', 'TV']), hsl),
-  roomMaker('2B22', 9, new Set(['Outlets', 'TV']), hsl),
+  roomMaker('1B14', 10, new Set<Utility>([]), hsl),
+  roomMaker('1B15', 10, new Set<Utility>([]), hsl),
+  roomMaker('1B16', 10, new Set<Utility>([]), hsl),
+  roomMaker('1B17', 10, new Set<Utility>(['Projector']), hsl),
+  roomMaker('1B18', 10, new Set<Utility>([]), hsl),
+  roomMaker('1B19', 10, new Set<Utility>([]), hsl),
+  roomMaker('1B20', 22, new Set<Utility>(['Projector']), hsl),
+  roomMaker('1B26', 10, new Set<Utility>([]), hsl),
+  roomMaker('1B27', 10, new Set<Utility>([]), hsl),
+  roomMaker('1B4', 10, new Set<Utility>([]), hsl),
+  roomMaker('1B5', 10, new Set<Utility>([]), hsl),
+  roomMaker('1B6', 10, new Set<Utility>([]), hsl),
+  roomMaker('2B21', 9, new Set<Utility>(['Projector']), hsl),
+  roomMaker('2B22', 9, new Set<Utility>(['Projector']), hsl),
 ];
+
+function capacityMatch(selectedCapacities: Set<string>, roomCapacity: number) {
+  for (let capacity of Array.from(selectedCapacities)) {
+    switch (capacity) {
+      case 'Any':
+        return true;
+      case '1-4':
+        if (roomCapacity >= 1 && roomCapacity <= 4) {
+          return true;
+        }
+        break;
+      case '5-9':
+        if (roomCapacity >= 5 && roomCapacity <= 9) {
+          return true;
+        }
+        break;
+      case '10-20':
+        if (roomCapacity >= 10 && roomCapacity <= 20) {
+          return true;
+        }
+        break;
+      case '>20':
+        if (roomCapacity > 20) {
+          return true;
+        }
+        break;
+      default:
+        break;
+    }
+  }
+  return false;
+}
 
 const getRooms = (filters: {
   capacity: Set<string>;
-  utilities: Set<string>;
-  buildings: Set<string>;
+  utilities: Set<Utility>;
+  buildings: Set<Building>;
 }) => {
-  // Assign rooms with score and initialize empty has and missing arrays
-  let matchedRooms = rooms.map((room) => {
+  return rooms.map((room) => {
+    let numFilters = 0;
+    let numMatches = 0;
+
+    // capacity
+    let capacityMatches = true;
+    if (!filters.capacity.has('Any')) {
+      capacityMatches = false;
+      if (capacityMatch(filters.capacity, room.capacity)) {
+        numMatches++;
+        capacityMatches = true;
+      }
+      numFilters++;
+    }
+
+    // utilities
+    let matchingUtilities = new Set<Utility>();
+    let missingUtilities = new Set<Utility>();
+    for (let utility of Array.from(filters.utilities)) {
+      if (room.utilities.has(utility)) {
+        numMatches++;
+        matchingUtilities.add(utility);
+      } else {
+        missingUtilities.add(utility);
+      }
+      numFilters++;
+    }
+
+    // buildings
+    let buildingMatches = true;
+    if (!filters.buildings.has('Any')) {
+      buildingMatches = false;
+      if (filters.buildings.has('Any') || filters.buildings.has(room.building)) {
+        numMatches++;
+        buildingMatches = true;
+      }
+      numFilters++;
+    }
+
+    let score = 100;
+    if (numFilters > 0) {
+      score = Math.round((numMatches / numFilters) * 100);
+    }
+    
+
     return {
       ...room,
-      score: 0,
-      has: new Array<string>(),
-      missing: new Array<string>(),
-      matchingCapacity: false,
+      score,
+      capacityMatches: capacityMatches,
+      matchingUtilities: Array.from(matchingUtilities),
+      missingUtilities: Array.from(missingUtilities),
+      buildingMatches: buildingMatches,
     };
-  });
-
-  // Check buildings
-  matchedRooms = matchedRooms.map((room) => {
-    const buildingMatches = filters.buildings.has(room.building);
-    if (buildingMatches || filters.buildings.has('Any')) {
-      return { ...room, score: 1 / 3, has: [room.building] };
-    }
-    return { ...room, score: 0, missing: [room.building] };
-  });
-
-  // Check utilities
-  matchedRooms = matchedRooms.map((room) => {
-    let has: string[] = [];
-    let missing: string[] = [];
-    if (!filters.utilities.has('Any')) {
-      filters.utilities.forEach((utility) => {
-        const utilityMatches = room.utilities.has(utility);
-        if (utilityMatches) {
-          has = [...has, utility];
-        } else {
-          missing = [...missing, utility];
-        }
-      });
-    } else {
-      has = Array.from(room.utilities);
-    }
-    const score = filters.utilities.has('Any')
-      ? 1 / 3
-      : has.length / filters.utilities.size / 3;
-    return { ...room, has, missing, score: room.score + score };
-  });
-
-  // Check capacity
-  matchedRooms = matchedRooms.map((room) => {
-    let capacityMatches = false;
-    filters.capacity.forEach((capacity) => {
-      switch (capacity) {
-        case 'Any':
-          capacityMatches = true;
-          break;
-        case '1-4':
-          capacityMatches =
-            capacityMatches || (room.capacity >= 1 && room.capacity <= 4);
-          break;
-        case '5-9':
-          capacityMatches =
-            capacityMatches || (room.capacity >= 5 && room.capacity <= 9);
-          break;
-        case '10-20':
-          capacityMatches =
-            capacityMatches || (room.capacity >= 10 && room.capacity <= 20);
-          break;
-        case '>20':
-          capacityMatches = capacityMatches || room.capacity > 20;
-          break;
-        default:
-          break;
-      }
-    });
-    return {
-      ...room,
-      matchingCapacity: capacityMatches,
-      score: room.score + (capacityMatches ? 1 / 3 : 0),
-    };
-  });
-
-  return matchedRooms
-    .filter((room) => room.score >= 0.5)
-    .sort((room1, room2) => {
-      const score = room2.score - room1.score;
-      if (score === 0) {
-        const has = room2.has.length - room1.has.length;
-        if (has === 0) {
-          return room1.name.localeCompare(room2.name);
-        }
-        return has;
-      }
-      return score;
-    });
+  })
+    .sort(() => Math.random() - 0.5) // randomize to give top matches more variety
+    .sort((room1, room2) => { return room2.score - room1.score; })
+    .slice(0, 10);
 };
-
 interface RoomsPage {
   filters: {
     capacity: Set<string>;
-    utilities: Set<string>;
-    buildings: Set<string>;
+    utilities: Set<Utility>;
+    buildings: Set<Building>;
   };
   setSelectedRoom: Function;
   setCurrentPage: Function;

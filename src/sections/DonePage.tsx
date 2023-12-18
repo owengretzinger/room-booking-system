@@ -1,16 +1,8 @@
+import { Room } from "@/components/RoomCard";
 import RoomDetails from "@/components/RoomDetails";
 
 interface DonePage {
-  room: {
-    score: number;
-    has: string[];
-    missing: string[];
-    matchingCapacity: boolean;
-    name: string;
-    capacity: number;
-    utilities: Set<string>;
-    building: string;
-  };
+  room: Room;
   date: string;
   startTime: string;
   endTime: string;
@@ -60,7 +52,7 @@ export default function DonePage({
             )}
             <button
               onClick={() => {reset(); setCurrentPage("main");}}
-              className="w-[90%] md:w-3/4 lg:w-1/2 text-center text-white rounded sm:text-lg md:text-xl lg:text-2xl py-1 md:py-2 lg:py-4 bg-yellow"
+              className="w-3/4 text-center text-white rounded sm:text-lg md:text-xl lg:text-2xl py-1 md:py-2 lg:py-4 bg-yellow"
             >
               Return to Home
             </button>

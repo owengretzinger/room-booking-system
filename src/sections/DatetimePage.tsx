@@ -14,6 +14,7 @@ interface DatetimePage {
   setSelectedSlots: Function;
   nextButtonDisabled: boolean;
   setNextButtonDisabled: Function;
+  setCompletedStages: Function;
 }
 
 export default function Datetime({
@@ -23,6 +24,7 @@ export default function Datetime({
   setSelectedSlots,
   nextButtonDisabled,
   setNextButtonDisabled,
+  setCompletedStages,
 }: DatetimePage) {
   const today = new Date();
   const footer = selectedDay ? (
@@ -33,13 +35,13 @@ export default function Datetime({
 
   return (
     <>
-      <main className="flex justify-center gap-4 items-stretch">
+      <main className="flex justify-center gap-4 items-stretch min-h-[calc(100vh_-_208px)]">
         <DayPicker
           showOutsideDays
           mode="single"
           required
           selected={selectedDay}
-          onSelect={(day) => setSelectedDay(day)}
+          onSelect={(day) => { setSelectedDay(day); setCompletedStages(0); }}
           footer={footer}
           disabled={{ before: today }}
         />
@@ -48,6 +50,7 @@ export default function Datetime({
           setSelectedSlots={setSelectedSlots}
           nextButtonDisabled={nextButtonDisabled}
           setNextButtonDisabled={setNextButtonDisabled}
+          setCompletedStages={setCompletedStages}
         />
       </main>
     </>
