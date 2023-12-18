@@ -2,11 +2,10 @@
 import React from "react";
 import Popup from "reactjs-popup";
 import { GrGroup } from "react-icons/gr";
-import { CiCircleCheck, CiCircleRemove } from "react-icons/ci";
-import { BookedRoom } from "@/sections/CancelPage";
-import { set } from "date-fns";
+import { FaXmark } from "react-icons/fa6";
 import { utilityToIcon } from "@/sections/FiltersPage";
 import { Room } from "./RoomCard";
+import Image from "next/image";
 
 interface RoomDetails {
   room: Room;
@@ -39,20 +38,19 @@ export default function RoomDetails({
           {" "}
           Get Directions{" "}
         </button>
-        <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+        <Popup open={open} closeOnDocumentClick onClose={closeModal} overlayStyle={{ background: 'rgba(0,0,0,0.2)' }} >
           <div className="w-[80vw] h-[80vh] bg-white border-4 border-red flex flex-col items-center">
             <button
-              className="cursor-pointer absolute block px-[5px] py-[2px] right-[-10px] top-[-10px] text-[24px] leading-[20px] bg-white border-4 border-red rounded-[18px]"
+              className="cursor-pointer absolute block p-1 -right-4 -top-4 bg-white border-4 border-red rounded-full"
               onClick={closeModal}
             >
-              &times;
+              <FaXmark size={24} />
             </button>
-            <div className="flex w-[95%] text-red text-2xl justify-center py-5 border-b-2 border-red">
-              {" "}
-              Get Directions{" "}
-            </div>
-            <div className="flex items-center justify-center w-[95%] h-full border-dashed border-2 my-6 p-5 border-yellow text-yellow text-xl">
-              Embedded Directional Video Goes Here
+            <div className="h-full w-full flex flex-col">
+              <div className="text-center text-2xl text-red pt-2">{room.building} {room.name} Floor Plan</div>
+              <div className="w-full h-full relative">
+                <Image className="object-contain p-4" src={`/images/floor-plans/${room.image}`} layout="fill" alt="Floor plan" />
+              </div>
             </div>
           </div>
         </Popup>
