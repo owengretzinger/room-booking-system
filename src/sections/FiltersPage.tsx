@@ -1,3 +1,5 @@
+import { GrGroup, GrPlug } from 'react-icons/gr';
+import { FaRegBuilding } from "react-icons/fa";
 import FilterButtons from '../components/FilterButtons';
 import Image from 'next/image';
 
@@ -6,19 +8,16 @@ const capacity = ['Any', '1-4', '5-9', '10-20', '>20'];
 
 // Utilities Options
 const utilities = [
-  'Any',
   'Projector',
   'Whiteboard',
   'Blackboard',
   'Computer',
-  'Outlets',
-  'TV',
 ];
 // Building Options
 const building = [
   'Any',
-  'Mills',
-  'Thode',
+  'Mills Memorial Library',
+  'Thode Library',
   'Gerald Hatch Centre',
   'Health Sciences Library',
 ];
@@ -39,14 +38,9 @@ export default function FiltersPage({ filters, setFilters }: FiltersPage) {
         <div className="flex flex-col items-start max-w-[500px] gap-5">
           {/* Capacity*/}
           <div className="flex flex-col items-start">
-            <div className="flex flex-row">
-              <Image
-                src="digital_wellbeing.svg"
-                alt="capacity icon"
-                width={40}
-                height={40}
-              />
-              <h1 className="text-2xl font-bold text-red algin-middle leading-[3rem]">
+            <div className="flex gap-1 items-center">
+              <GrGroup className="text-red" size={30} />
+              <h1 className="text-2xl font-bold text-red algin-middle">
                 Capacity
               </h1>
             </div>
@@ -64,8 +58,8 @@ export default function FiltersPage({ filters, setFilters }: FiltersPage) {
 
           {/* Utilities */}
           <div className="flex flex-col items-start">
-            <div className="flex flex-row">
-              <Image src="power.svg" alt="outlet icon" width={40} height={40} />
+            <div className="flex gap-1 items-center">
+              <GrPlug className="text-red" size={30} />
               <h1 className="text-2xl font-bold text-red algin-middle leading-[3rem]">
                 Utilities
               </h1>
@@ -84,13 +78,8 @@ export default function FiltersPage({ filters, setFilters }: FiltersPage) {
 
           {/* Building */}
           <div className="flex flex-col items-start">
-            <div className="flex flex-row">
-              <Image
-                src="account_balance.svg"
-                alt="building icon"
-                width={40}
-                height={40}
-              />
+            <div className="flex gap-1 items-center">
+              <FaRegBuilding  className="text-red" size={30} />
               <h1 className="text-2xl font-bold text-red algin-middle leading-[3rem]">
                 Building
               </h1>
