@@ -143,7 +143,7 @@ export default function Timepicker({
           <div
             key={slot.key}
             className={`relative border-2 border-red flex-1 ${
-              selectedSlots.has(slot.key) ? 'bg-yellow' : ''
+              selectedSlots.has(slot.key) ? 'bg-red/40' : ''
             }`}
             onMouseEnter={() => handleDrag(slot.key)}
             onMouseDown={() => handleMouseDown(slot.key)}

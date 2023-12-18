@@ -53,9 +53,8 @@ export default function RoomDetails({
                 <Image
                   className="object-scale-down w-full h-[90%] p-4"
                   src={`/images/floor-plans/${room.image}`}
-                  width={500}
-                  height={500}
-                  // fill
+                  width={800}
+                  height={800}
                   alt="Floor plan"
                   onLoad={() => setImageLoaded(true)}
                 />

@@ -121,7 +121,7 @@ export default function RoomCard({
                     key={i}
                   >
                     <BiError className="" size={24} />
-                    <span className="">No {util.toLowerCase()}</span>
+                    <span className="">No {util[0].toLowerCase()}{util.slice(1)}</span>
                   </li>
                 );
               })}

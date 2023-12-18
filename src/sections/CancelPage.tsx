@@ -1,6 +1,6 @@
 import { Room } from "@/components/RoomCard";
 import RoomDetails from "@/components/RoomDetails";
-import { CiCircleCheck } from "react-icons/ci";
+import { MdCheck } from "react-icons/md";
 
 export type BookedRoom = {
   bookingId: number;
@@ -38,10 +38,10 @@ export default function CancelPage({
                   cancelButton={
                     bookedRoom.bookingCancelled ?
                       <div className="w-full flex gap-1 justify-center items-center text-red py-2">
-                        <CiCircleCheck className="" size={24} />
                         <div className="">
                           Booking Cancelled
                         </div>
+                        <MdCheck className="" size={24} />
                       </div>
                       :
                       <button
