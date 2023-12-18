@@ -15,7 +15,7 @@ const utilityOptions = utilities;
 const buildingOptions = buildings;
 
 export const utilityToIcon = {
-  'Projector': <BsProjector size={24} />,
+  'Projector/TV': <BsProjector size={24} />,
   'Whiteboard': <BiChalkboard size={24} />,
   'Blackboard': <BiSolidChalkboard size={24} />,
   'Computer': <RiComputerLine size={24} />,

@@ -2,6 +2,7 @@ import { Room } from "@/components/RoomCard";
 import RoomDetails from "@/components/RoomDetails";
 import { BookedRoom } from "./CancelPage";
 import { CiCircleCheck } from "react-icons/ci";
+import { MdCheck } from "react-icons/md";
 
 interface DonePage {
   room: Room;
@@ -43,7 +44,7 @@ export default function DonePage({
               />
               {/* Cancel Button */}
               {
-                bookedRooms[bookedRooms.length-1].bookingCancelled ?
+                bookedRooms[bookedRooms.length - 1].bookingCancelled ?
                   <div className="w-full flex gap-1 justify-center items-center text-red py-2 my-5">
                     <CiCircleCheck className="" size={24} />
                     <div className="">
@@ -55,7 +56,7 @@ export default function DonePage({
                     className="bg-red text-white rounded-lg w-full py-2 my-5"
                     onClick={() => {
                       setBookedRooms(bookedRooms.map((bookedRoom, i) => {
-                        if (i === bookedRooms.length-1) {
+                        if (i === bookedRooms.length - 1) {
                           bookedRoom.bookingCancelled = true;
                         }
                         return bookedRoom;
@@ -72,9 +73,12 @@ export default function DonePage({
                 <h1 className="text-4xl font-bold text-red">
                   Booking Confirmed!
                 </h1>
-                <p className="text-2xl font-bold text-red mb-10">
-                  Email Confirmation Sent!
-                </p>
+                <div className="flex gap-2 items-center text-red mb-5 text-2xl">
+                  <p className="font-bold">
+                    Email Confirmation Sent
+                  </p>
+                  <MdCheck className="-ml-1" />
+                </div>
               </>
             ) : (
               <></>

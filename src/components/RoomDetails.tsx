@@ -67,6 +67,22 @@ export default function RoomDetails({
                     </div>
                   </div>
                 }
+                <Image
+                  className="object-scale-down w-full h-[90%] p-4"
+                  src={`/images/floor-plans/${room.image}`}
+                  width={800}
+                  height={800}
+                  alt="Floor plan"
+                  onLoad={() => setImageLoaded(true)}
+                />
+                {!imageLoaded &&
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div
+                      className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-red border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                      role="status">
+                    </div>
+                  </div>
+                }
               </div>
             </div>
           </div>
