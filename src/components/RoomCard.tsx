@@ -17,6 +17,7 @@ export type Room = {
   utilities: Set<Utility>;
   building: string;
   image: string;
+  numOutlets: number;
 }
 
 interface RoomCard {
@@ -65,7 +66,7 @@ export default function RoomCard({
           </div>
           <div className="basis-1/2 flex items-center gap-2">
             <GrPlug className="" size={24} />
-            <span className="">4 outlets</span>
+            <span className="">{room.numOutlets} outlets</span>
           </div>
         </div>
         <div className="flex">

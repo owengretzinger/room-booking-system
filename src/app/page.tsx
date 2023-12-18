@@ -37,6 +37,7 @@ export default function Home() {
     utilities: new Set<Utility>(),
     building: "",
     image: "",
+    numOutlets: 0,
   });
 
   const [completedStages, setCompletedStages] = useState<number>(0);
