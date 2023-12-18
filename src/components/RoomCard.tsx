@@ -36,7 +36,7 @@ export default function RoomCard({
       {/* image */}
       <div className="h-full aspect-square bg-gray-400 rounded-xl hidden sm:block">
         <Image
-          src={`/images/${room.image}`}
+          src={`/images/room-images/${room.image}`}
           width={210}
           height={210}
           className="rounded-xl w-full h-full object-cover"
