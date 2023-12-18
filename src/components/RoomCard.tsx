@@ -1,5 +1,6 @@
-import { GrGroup } from 'react-icons/gr';
+import { GrGroup, GrPlug } from 'react-icons/gr';
 import { CiCircleCheck, CiCircleRemove } from 'react-icons/ci';
+import { BiError } from "react-icons/bi";
 import Image from 'next/image';
 
 interface RoomCard {
@@ -23,9 +24,9 @@ export default function RoomCard({
   setCurrentPage,
 }: RoomCard) {
   return (
-    <div className="flex min-h-[250px] p-4 border-red border-4 rounded-xl gap-4 w-full md:w-[750px]">
+    <div className="flex h-[250px] p-4 border-red border-4 rounded-xl gap-4 w-full md:w-[750px]">
       {/* image */}
-      <div className="aspect-square bg-gray-400 rounded-xl hidden sm:block">
+      <div className="h-full aspect-square bg-gray-400 rounded-xl hidden sm:block">
         <Image
           src="/images/room-sample.jpg"
           width={100}
@@ -36,51 +37,63 @@ export default function RoomCard({
       </div>
 
       {/* info */}
-      <div className="flex flex-col gap-2 text-red ">
-        <div className="text-4xl">{room.name}</div>
-        <div className="text-sm">{room.building}</div>
-        <ul className="flex flex-col gap-2">
-          <li className="flex items-center gap-2">
-            <GrGroup className="" size={24} />
-            <span className="">{room.capacity} people</span>
-          </li>
-          <div className="flex gap-3">
-            {room.has.length > 0 ? (
-              <ul>
-                {room.has.map((util, i) => {
-                  return (
-                    <li
-                      className="flex items-center gap-2 text-green-700"
-                      key={i}
-                    >
-                      <CiCircleCheck className="" size={24} />
-                      <span className="">{util}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : null}
-            {room.missing.length > 0 ? (
-              <ul>
-                {room.missing.map((util, i) => {
-                  return (
-                    <li
-                      className="flex items-center gap-2 text-rose-700"
-                      key={i}
-                    >
-                      <CiCircleRemove className="" size={24} />
-                      <span className="">{util}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : null}
+      <div className="flex flex-col gap-4 text-red flex-1">
+        <div className="">
+          <div className="flex gap-1 items-center">
+            <div>{room.building}</div>
+            <BiError className={`text-xl hidden`} />
           </div>
-        </ul>
+          <div className="text-4xl leading-7 -mt-[6px]">{room.name}</div>
+        </div>
+        <div className="w-full flex">
+          <div className="basis-1/2 flex items-center gap-2">
+            <GrGroup className="" size={24} />
+            <div className="flex gap-1 items-center">
+              <span className="">{room.capacity} people</span>
+              <BiError className={`text-xl hidden`} />
+            </div>
+          </div>
+          <div className="basis-1/2 flex items-center gap-2">
+            <GrPlug className="" size={24} />
+            <span className="">4 outlets</span>
+          </div>
+        </div>
+        <div className="flex">
+          {room.has.length > 0 ? (
+            <ul className="basis-1/2">
+              {room.has.map((util, i) => {
+                return (
+                  <li
+                    className="flex items-center gap-2 text-green-700"
+                    key={i}
+                  >
+                    <CiCircleCheck className="" size={24} />
+                    <span className="">{util}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
+          {room.missing.length > 0 ? (
+            <ul className="basis-1/2">
+              {room.missing.map((util, i) => {
+                return (
+                  <li
+                    className="flex items-center gap-2 text-rose-700"
+                    key={i}
+                  >
+                    <CiCircleRemove className="" size={24} />
+                    <span className="">{util}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
+        </div>
       </div>
 
       {/* match */}
-      <div className="flex flex-col h-full border-red border-4 rounded-xl p-4 gap-4 ml-auto">
+      <div className="flex flex-col h-full p-4 gap-4">
         <div className="h-full flex justify-center items-center">
           <ProgressCircle percentFilled={Math.round(room.score * 100)} />
         </div>
