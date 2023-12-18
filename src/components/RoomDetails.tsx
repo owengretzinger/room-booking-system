@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
 import Popup from "reactjs-popup";
 import { GrGroup } from "react-icons/gr";
 import { FaXmark } from "react-icons/fa6";
 import { utilityToIcon } from "@/sections/FiltersPage";
 import { Room } from "./RoomCard";
 import Image from "next/image";
+import { useState } from "react";
 
 interface RoomDetails {
   room: Room;
@@ -22,8 +22,9 @@ export default function RoomDetails({
   endTime,
   cancelButton,
 }: RoomDetails) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <>
@@ -49,7 +50,23 @@ export default function RoomDetails({
             <div className="h-full w-full flex flex-col">
               <div className="text-center text-2xl text-red pt-2">{room.building} {room.name} Floor Plan</div>
               <div className="w-full h-full relative">
-                <Image className="object-contain p-4" src={`/images/floor-plans/${room.image}`} layout="fill" alt="Floor plan" />
+                <Image
+                  className="object-scale-down w-full h-[90%] p-4"
+                  src={`/images/floor-plans/${room.image}`}
+                  width={500}
+                  height={500}
+                  // fill
+                  alt="Floor plan"
+                  onLoad={() => setImageLoaded(true)}
+                />
+                {!imageLoaded &&
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div
+                      className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-red border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                      role="status">
+                    </div>
+                  </div>
+                }
               </div>
             </div>
           </div>
