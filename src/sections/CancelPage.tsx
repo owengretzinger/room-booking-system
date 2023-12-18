@@ -28,7 +28,7 @@ export default function CancelPage({
 }: CancelPage) {
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-between">
+      <main className="flex flex-col items-center justify-between pt-32">
         {room.score == 0 ? (
           <div className="text-red text-2xl">No bookings made yet</div>
         ) : (

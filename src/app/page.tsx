@@ -151,20 +151,22 @@ export default function Home() {
   return (
     <>
       {/* <TimeSelector /> */}
-      {currentPage === "main" ? (
+      {/*currentPage === "main" || currentPage === "done" ? (
         renderedPage
-      ) : (
-        <>
-          <Header {...headerProps}></Header>
-          <div className="pt-52 relative">{renderedPage}</div>
-        </>
-      )}
+      ) : */(
+          <>
+            <Header {...headerProps}></Header>
+            <div className={`
+            ${currentPage === "main" || currentPage === "done" || currentPage === "cancel" ? "" :
+                "pt-52 relative"}
+            `}>{renderedPage}</div>
+          </>
+        )}
     </>
   );
 }
 
 function indexToTime(i: number) {
-  return `${(Math.floor(i / 2 + 7) % 12) + 1}:${i % 2 == 0 ? "0" : "3"}0${
-    i / 2 + 8 <= 11 ? "AM" : "PM"
-  }`;
+  return `${(Math.floor(i / 2 + 7) % 12) + 1}:${i % 2 == 0 ? "0" : "3"}0${i / 2 + 8 <= 11 ? "AM" : "PM"
+    }`;
 }
