@@ -4,12 +4,14 @@ interface FilterButtons {
   filters: Set<string>;
   setFilters: Function;
   items: Array<string>;
+  setCompletedStages: Function;
 }
 
 export default function FilterButtons({
   filters,
   setFilters,
   items,
+  setCompletedStages,
 }: FilterButtons) {
   // note: need to create a new set to trigger rerender for any changes
   const handleClick = (name: string) => {
@@ -24,7 +26,7 @@ export default function FilterButtons({
       const updatedButtons = new Set(filters);
       updatedButtons.delete(name);
       // if everything is unselected, select any
-      if (updatedButtons.size === 0) {
+      if (updatedButtons.size === 0 && items.includes('Any')) {
         setFilters(new Set(['Any']));
       }
       // otherwise just unselect
@@ -39,6 +41,7 @@ export default function FilterButtons({
       updatedButtons.delete('Any');
       setFilters(updatedButtons);
     }
+    setCompletedStages(1);
   };
 
   return (

@@ -7,11 +7,12 @@ import DonePage from "../sections/DonePage";
 import DatetimePage from "../sections/DatetimePage";
 import FiltersPage from "../sections/FiltersPage";
 import MainPage from "../sections/MainPage";
-import RoomsPage from "../sections/RoomsPage";
+import RoomsPage, { Building, Utility } from "../sections/RoomsPage";
 
 import { format } from "date-fns";
 
 import { useState } from "react";
+import { Room } from "@/components/RoomCard";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("main");
@@ -22,23 +23,15 @@ export default function Home() {
   );
   const [filters, setFilters] = useState({
     capacity: new Set<string>(["Any"]),
-    utilities: new Set<string>(["Any"]),
-    buildings: new Set<string>(["Any"]),
+    utilities: new Set<Utility>([]),
+    buildings: new Set<Building>(["Any"]),
   });
-  const [selectedRoom, setSelectedRoom] = useState<{
-    score: number;
-    has: string[];
-    missing: string[];
-    matchingCapacity: boolean;
-    name: string;
-    capacity: number;
-    utilities: Set<string>;
-    building: string;
-  }>({
+  const [selectedRoom, setSelectedRoom] = useState<Room>({
     score: 0,
-    has: [],
-    missing: [],
-    matchingCapacity: true,
+    capacityMatches: true,
+    matchingUtilities: [],
+    missingUtilities: [],
+    buildingMatches: true,
     name: "",
     capacity: 0,
     utilities: new Set<string>([]),
@@ -58,8 +51,8 @@ export default function Home() {
     setSelectedSlots(new Set<number>([]));
     setFilters({
       capacity: new Set<string>(["Any"]),
-      utilities: new Set<string>(["Any"]),
-      buildings: new Set<string>(["Any"]),
+      utilities: new Set<Utility>([]),
+      buildings: new Set<Building>(["Any"]),
     });
     setCompletedStages(0);
   }
@@ -80,6 +73,7 @@ export default function Home() {
           setSelectedSlots={setSelectedSlots}
           nextButtonDisabled={nextButtonDisabled}
           setNextButtonDisabled={setNextButtonDisabled}
+          setCompletedStages={setCompletedStages}
         ></DatetimePage>
       );
       break;
@@ -88,7 +82,11 @@ export default function Home() {
       next = "rooms";
       stage = 1;
       renderedPage = (
-        <FiltersPage filters={filters} setFilters={setFilters}></FiltersPage>
+        <FiltersPage
+          filters={filters}
+          setFilters={setFilters}
+          setCompletedStages={setCompletedStages}
+        ></FiltersPage>
       );
       break;
     case "rooms":

@@ -3,17 +3,20 @@ import { CiCircleCheck, CiCircleRemove } from 'react-icons/ci';
 import { BiError } from "react-icons/bi";
 import Image from 'next/image';
 
+export type Room = {
+  score: number;
+  capacityMatches: boolean;
+  matchingUtilities: string[];
+  missingUtilities: string[];
+  buildingMatches: boolean;
+  name: string;
+  capacity: number;
+  utilities: Set<string>;
+  building: string;
+}
+
 interface RoomCard {
-  room: {
-    score: number;
-    has: string[];
-    missing: string[];
-    matchingCapacity: boolean;
-    name: string;
-    capacity: number;
-    utilities: Set<string>;
-    building: string;
-  };
+  room: Room;
   setSelectedRoom: Function;
   setCurrentPage: Function;
 }
@@ -41,7 +44,7 @@ export default function RoomCard({
         <div className="">
           <div className="flex gap-1 items-center">
             <div>{room.building}</div>
-            <BiError className={`text-xl hidden`} />
+            <BiError className={`text-xl ${room.buildingMatches ? "hidden" : ""}`} />
           </div>
           <div className="text-4xl leading-7 -mt-[6px]">{room.name}</div>
         </div>
@@ -50,7 +53,7 @@ export default function RoomCard({
             <GrGroup className="" size={24} />
             <div className="flex gap-1 items-center">
               <span className="">{room.capacity} people</span>
-              <BiError className={`text-xl hidden`} />
+              <BiError className={`text-xl ${room.capacityMatches ? "hidden" : ""}`} />
             </div>
           </div>
           <div className="basis-1/2 flex items-center gap-2">
@@ -59,9 +62,9 @@ export default function RoomCard({
           </div>
         </div>
         <div className="flex">
-          {room.has.length > 0 ? (
+          {room.matchingUtilities.length > 0 ? (
             <ul className="basis-1/2">
-              {room.has.map((util, i) => {
+              {room.matchingUtilities.map((util, i) => {
                 return (
                   <li
                     className="flex items-center gap-2 text-green-700"
@@ -74,9 +77,9 @@ export default function RoomCard({
               })}
             </ul>
           ) : null}
-          {room.missing.length > 0 ? (
+          {room.missingUtilities.length > 0 ? (
             <ul className="basis-1/2">
-              {room.missing.map((util, i) => {
+              {room.missingUtilities.map((util, i) => {
                 return (
                   <li
                     className="flex items-center gap-2 text-rose-700"
@@ -95,7 +98,7 @@ export default function RoomCard({
       {/* match */}
       <div className="flex flex-col h-full p-4 gap-4">
         <div className="h-full flex justify-center items-center">
-          <ProgressCircle percentFilled={Math.round(room.score * 100)} />
+          <ProgressCircle percentFilled={room.score} />
         </div>
         <button
           className="w-full text-white bg-amber-350 rounded-xl px-4 py-2 text-center"

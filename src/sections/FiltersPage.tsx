@@ -2,25 +2,14 @@ import { GrGroup, GrPlug } from 'react-icons/gr';
 import { FaRegBuilding } from "react-icons/fa";
 import FilterButtons from '../components/FilterButtons';
 import Image from 'next/image';
+import { buildings, utilities } from './RoomsPage';
 
 // Capacity Options
-const capacity = ['Any', '1-4', '5-9', '10-20', '>20'];
-
+const capacityOptions = ['Any', '1-4', '5-9', '10-20', '>20'];
 // Utilities Options
-const utilities = [
-  'Projector',
-  'Whiteboard',
-  'Blackboard',
-  'Computer',
-];
+const utilityOptions = utilities;
 // Building Options
-const building = [
-  'Any',
-  'Mills Memorial Library',
-  'Thode Library',
-  'Gerald Hatch Centre',
-  'Health Sciences Library',
-];
+const buildingOptions = buildings;
 
 interface FiltersPage {
   filters: {
@@ -29,9 +18,10 @@ interface FiltersPage {
     buildings: Set<string>;
   };
   setFilters: Function;
+  setCompletedStages: Function;
 }
 
-export default function FiltersPage({ filters, setFilters }: FiltersPage) {
+export default function FiltersPage({ filters, setFilters, setCompletedStages }: FiltersPage) {
   return (
     <>
       <main className="flex justify-center">
@@ -51,7 +41,8 @@ export default function FiltersPage({ filters, setFilters }: FiltersPage) {
                 setFilters={(newCapacities: Set<string>) =>
                   setFilters({ ...filters, capacity: newCapacities })
                 }
-                items={capacity}
+                items={capacityOptions}
+                setCompletedStages={setCompletedStages}
               />
             </div>
           </div>
@@ -71,7 +62,8 @@ export default function FiltersPage({ filters, setFilters }: FiltersPage) {
                 setFilters={(newUtilities: Set<string>) =>
                   setFilters({ ...filters, utilities: newUtilities })
                 }
-                items={utilities}
+                items={Array.from(utilityOptions)}
+                setCompletedStages={setCompletedStages}
               />
             </div>
           </div>
@@ -91,7 +83,8 @@ export default function FiltersPage({ filters, setFilters }: FiltersPage) {
                 setFilters={(newBuildings: Set<string>) =>
                   setFilters({ ...filters, buildings: newBuildings })
                 }
-                items={building}
+                items={Array.from(buildingOptions)}
+                setCompletedStages={setCompletedStages}
               />
             </div>
           </div>

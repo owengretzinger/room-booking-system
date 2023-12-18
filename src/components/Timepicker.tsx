@@ -42,13 +42,15 @@ interface Timeslots {
   setSelectedSlots: Function;
   nextButtonDisabled: boolean;
   setNextButtonDisabled: Function;
+  setCompletedStages: Function;
 }
 
-export default function Timeslots({
+export default function Timepicker({
   selectedSlots,
   setSelectedSlots,
   nextButtonDisabled,
   setNextButtonDisabled,
+  setCompletedStages,
 }: Timeslots) {
   const [dragOperation, setDragOperation] = useState<
     'Selecting' | 'Deselecting' | 'None'
@@ -65,7 +67,7 @@ export default function Timeslots({
       setDragOperation('Deselecting');
       selectedSlots.delete(key);
       // if we deselect in a block of slots, deselect everything after it too
-      if (selectedSlots.has(key - 1) || selectedSlots.has(key + 1)) {
+      if (selectedSlots.has(key - 1) && selectedSlots.has(key + 1)) {
         for (let i = key; i <= timeslots.length; i++) {
           if (selectedSlots.has(i)) {
             selectedSlots.delete(i);
@@ -87,6 +89,7 @@ export default function Timeslots({
       }
     }
     setSelectedSlots(new Set(selectedSlots));
+    setCompletedStages(0);
   };
 
   // logic to select/deselect slots while dragging

@@ -1,16 +1,8 @@
+import { Room } from "@/components/RoomCard";
 import RoomDetails from "@/components/RoomDetails";
 
 interface CancelPage {
-  room: {
-    score: number;
-    has: string[];
-    missing: string[];
-    matchingCapacity: boolean;
-    name: string;
-    capacity: number;
-    utilities: Set<string>;
-    building: string;
-  };
+  room: Room;
   date: string;
   startTime: string;
   endTime: string;
