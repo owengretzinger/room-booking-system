@@ -20,6 +20,7 @@ interface Header {
   next: string | undefined;
   reset: Function;
   stage: number | undefined;
+  currentPage: string;
   setCurrentPage: Function;
   nextButtonDisabled: boolean;
   setNextButtonDisabled: Function;
@@ -37,6 +38,7 @@ export default function Header({
   back,
   next,
   stage,
+  currentPage,
   setCurrentPage,
   reset,
   nextButtonDisabled,
@@ -73,7 +75,7 @@ export default function Header({
               reset();
               setCurrentPage('main');
             }}
-            disabled={stage === undefined}
+            disabled={stage === undefined && currentPage !== 'cancel' && currentPage !== 'done'}
             className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red flex-auto h-10 md:h-12 lg:h-16"
           >
             McMaster Room Booking

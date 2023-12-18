@@ -161,6 +161,7 @@ export default function Home() {
     back,
     next,
     stage,
+    currentPage,
     setCurrentPage,
     reset,
     nextButtonDisabled,
