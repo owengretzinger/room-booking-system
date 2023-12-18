@@ -13,8 +13,9 @@ const roomMaker = (
   utilities: Set<Utility>,
   building: Building,
   image: string,
+  numOutlets: number
 ) => {
-  return { name, capacity, utilities, building, image };
+  return { name, capacity, utilities, building, image, numOutlets };
 };
 
 const ghc = 'Gerald Hatch Centre';
@@ -24,41 +25,41 @@ const hsl = 'Health Sciences Library';
 
 const rooms = [
   // Hatch
-  roomMaker('H201', 9, new Set<Utility>(['Whiteboard']), ghc, 'room-1.jpg'),
-  roomMaker('H203', 10, new Set<Utility>(['Projector']), ghc, 'room-2.jpg'),
-  roomMaker('H204A', 7, new Set<Utility>(['Whiteboard', 'Blackboard']), ghc, 'room-3.jpg'),
-  roomMaker('H204B', 8, new Set<Utility>(), ghc, 'room-4.jpg'),
+  roomMaker('H201', 9, new Set<Utility>(['Whiteboard']), ghc, 'room-1.jpg', 4),
+  roomMaker('H203', 10, new Set<Utility>(['Projector']), ghc, 'room-2.jpg', 4),
+  roomMaker('H204A', 7, new Set<Utility>(['Whiteboard', 'Blackboard']), ghc, 'room-3.jpg', 4),
+  roomMaker('H204B', 8, new Set<Utility>(), ghc, 'room-4.jpg', 4),
   // Mills
-  roomMaker('L310/A', 12, new Set<Utility>(['Whiteboard', 'Projector']), mills, 'room-5.jpg'),
-  roomMaker('L310/B', 12, new Set<Utility>(['Whiteboard', 'Projector']), mills, 'room-6.jpg'),
-  roomMaker('L310/C', 16, new Set<Utility>(['Whiteboard', 'Projector']), mills, 'room-7.jpg'),
-  roomMaker('L310/D', 22, new Set<Utility>(['Whiteboard', 'Projector']), mills, 'room-8.jpg'),
-  roomMaker('L310/E', 8, new Set<Utility>(['Whiteboard']), mills, 'room-9.jpg'),
+  roomMaker('L310/A', 12, new Set<Utility>(['Whiteboard', 'Projector']), mills, 'room-5.jpg', 8),
+  roomMaker('L310/B', 12, new Set<Utility>(['Whiteboard', 'Projector']), mills, 'room-6.jpg', 8),
+  roomMaker('L310/C', 16, new Set<Utility>(['Whiteboard', 'Projector']), mills, 'room-7.jpg', 8),
+  roomMaker('L310/D', 22, new Set<Utility>(['Whiteboard', 'Projector']), mills, 'room-8.jpg', 12),
+  roomMaker('L310/E', 8, new Set<Utility>(['Whiteboard']), mills, 'room-9.jpg', 4),
   // Thode
-  roomMaker('Group Study 1', 10, new Set<Utility>(['Blackboard']), thode, 'room-10.jpg'),
-  roomMaker('Group Study 2', 6, new Set<Utility>(['Blackboard']), thode, 'room-11.jpg'),
-  roomMaker('Group Study 3', 12, new Set<Utility>(['Blackboard']), thode, 'room-12.jpg'),
-  roomMaker('Group Study 6', 6, new Set<Utility>(['Blackboard', 'Projector']), thode, 'room-13.jpg'),
-  roomMaker('Group Study 7', 8, new Set<Utility>(['Blackboard']), thode, 'room-14.jpg'),
-  roomMaker('Group Study 8', 8, new Set<Utility>(['Blackboard']), thode, 'room-15.jpg'),
-  roomMaker('Group Study 9', 4, new Set<Utility>(['Blackboard']), thode, 'room-16.jpg'),
-  roomMaker('Group Study 10', 4, new Set<Utility>(['Blackboard']), thode, 'room-17.jpg'),
-  roomMaker('ITM Room - 102', 4, new Set<Utility>(['Blackboard']), thode, 'room-18.jpg'),
+  roomMaker('Group Study 1', 10, new Set<Utility>(['Blackboard']), thode, 'room-10.jpg', 4),
+  roomMaker('Group Study 2', 6, new Set<Utility>(['Blackboard']), thode, 'room-11.jpg', 4),
+  roomMaker('Group Study 3', 12, new Set<Utility>(['Blackboard']), thode, 'room-12.jpg', 6),
+  roomMaker('Group Study 6', 6, new Set<Utility>(['Blackboard', 'Projector']), thode, 'room-13.jpg', 4),
+  roomMaker('Group Study 7', 8, new Set<Utility>(['Blackboard']), thode, 'room-14.jpg', 4),
+  roomMaker('Group Study 8', 8, new Set<Utility>(['Blackboard']), thode, 'room-15.jpg', 4),
+  roomMaker('Group Study 9', 4, new Set<Utility>(['Blackboard']), thode, 'room-16.jpg', 2),
+  roomMaker('Group Study 10', 4, new Set<Utility>(['Blackboard']), thode, 'room-17.jpg', 2),
+  roomMaker('ITM Room - 102', 4, new Set<Utility>(['Blackboard']), thode, 'room-18.jpg', 2),
   // HSL
-  roomMaker('1B14', 5, new Set<Utility>(['Blackboard']), hsl, 'room-19.jpg'),
-  roomMaker('1B15', 6, new Set<Utility>(['Blackboard']), hsl, 'room-20.jpg'),
-  roomMaker('1B16', 6, new Set<Utility>(['Blackboard']), hsl, 'room-21.jpg'),
-  roomMaker('1B17', 6, new Set<Utility>(['Blackboard']), hsl, 'room-22.jpg'),
-  roomMaker('1B18', 5, new Set<Utility>(['Blackboard']), hsl, 'room-23.jpg'),
-  roomMaker('1B19', 6, new Set<Utility>(['Blackboard']), hsl, 'room-24.jpg'),
-  roomMaker('1B20', 6, new Set<Utility>(['Projector']), hsl, 'room-25.jpg'),
-  roomMaker('1B26', 2, new Set<Utility>(['Computer']), hsl, 'room-26.jpg'),
-  roomMaker('1B27', 6, new Set<Utility>([]), hsl, 'room-27.jpg'),
-  roomMaker('1B4', 4, new Set<Utility>([]), hsl, 'room-28.jpg'),
-  roomMaker('1B5', 5, new Set<Utility>(['Blackboard']), hsl, 'room-29.jpg'),
-  roomMaker('1B6', 5, new Set<Utility>(['Blackboard']), hsl, 'room-30.jpg'),
-  roomMaker('2B21', 5, new Set<Utility>(['Blackboard']), hsl, 'room-31.jpg'),
-  roomMaker('2B22', 6, new Set<Utility>(['Blackboard']), hsl, 'room-32.jpg'),
+  roomMaker('1B14', 5, new Set<Utility>(['Blackboard']), hsl, 'room-19.jpg', 2),
+  roomMaker('1B15', 6, new Set<Utility>(['Blackboard']), hsl, 'room-20.jpg', 4),
+  roomMaker('1B16', 6, new Set<Utility>(['Blackboard']), hsl, 'room-21.jpg', 4),
+  roomMaker('1B17', 6, new Set<Utility>(['Blackboard']), hsl, 'room-22.jpg', 4),
+  roomMaker('1B18', 5, new Set<Utility>(['Blackboard']), hsl, 'room-23.jpg', 4),
+  roomMaker('1B19', 6, new Set<Utility>(['Blackboard']), hsl, 'room-24.jpg', 4),
+  roomMaker('1B20', 6, new Set<Utility>(['Projector']), hsl, 'room-25.jpg', 4),
+  roomMaker('1B26', 2, new Set<Utility>(['Computer']), hsl, 'room-26.jpg', 2),
+  roomMaker('1B27', 6, new Set<Utility>([]), hsl, 'room-27.jpg', 2),
+  roomMaker('1B4', 4, new Set<Utility>([]), hsl, 'room-28.jpg', 2),
+  roomMaker('1B5', 5, new Set<Utility>(['Blackboard']), hsl, 'room-29.jpg', 2),
+  roomMaker('1B6', 5, new Set<Utility>(['Blackboard']), hsl, 'room-30.jpg', 2),
+  roomMaker('2B21', 5, new Set<Utility>(['Blackboard']), hsl, 'room-31.jpg', 2),
+  roomMaker('2B22', 6, new Set<Utility>(['Blackboard']), hsl, 'room-32.jpg', 4),
 ];
 
 function capacityMatch(selectedCapacities: Set<string>, roomCapacity: number) {
