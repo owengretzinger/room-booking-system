@@ -1,7 +1,7 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
-import RoomDetails from '@/components/RoomDetails';
+import RoomDetails from "@/components/RoomDetails";
 
 let counter = 0;
 
@@ -89,7 +89,7 @@ export default function ConfirmPage({
                   <button
                     className="text-red rounded-md outline-3 outline-dashed w-[80%] my-2 py-1 px-2"
                     onClick={() => {
-                      setEmail([...email, '']);
+                      setEmail([...email, ""]);
                       counter++;
                     }}
                   >
@@ -117,6 +117,8 @@ export default function ConfirmPage({
           isLoggedIn={isLoggedIn}
           setCurrentPage={setCurrentPage}
           isConfirmed={false}
+          isCancelPage={false}
+          setSelectedRoom={() => {}}
         />
       </main>
     </>
