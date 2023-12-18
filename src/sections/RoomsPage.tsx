@@ -10,9 +10,9 @@ const roomMaker = (
 };
 
 const ghc = 'Gerald Hatch Centre';
-const mills = 'Mills';
-const thode = 'Thode';
-const hsl = 'Health Science Library';
+const mills = 'Mills Memorial Library';
+const thode = 'Thode Library';
+const hsl = 'Health Sciences Library';
 
 const rooms = [
   // Hatch
@@ -165,8 +165,6 @@ export default function RoomsPage({
   setCurrentPage,
 }: RoomsPage) {
   const filteredRooms = getRooms(filters);
-
-  console.log(filteredRooms);
 
   return (
     <>
