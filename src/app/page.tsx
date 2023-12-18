@@ -1,13 +1,13 @@
 "use client";
 
 import Header from "../components/Header";
-import CancelPage from "../pages/CancelPage";
-import ConfirmPage from "../pages/ConfirmPage";
-import DonePage from "../pages/DonePage";
-import DatetimePage from "../pages/DatetimePage";
-import FiltersPage from "../pages/FiltersPage";
-import MainPage from "../pages/MainPage";
-import RoomsPage from "../pages/RoomsPage";
+import CancelPage from "../sections/CancelPage";
+import ConfirmPage from "../sections/ConfirmPage";
+import DonePage from "../sections/DonePage";
+import DatetimePage from "../sections/DatetimePage";
+import FiltersPage from "../sections/FiltersPage";
+import MainPage from "../sections/MainPage";
+import RoomsPage from "../sections/RoomsPage";
 
 import { format } from "date-fns";
 
