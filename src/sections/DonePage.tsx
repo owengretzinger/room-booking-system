@@ -16,6 +16,7 @@ interface DonePage {
   endTime: string;
   setCurrentPage: Function;
   setSelectedRoom: Function;
+  reset: Function;
 }
 
 export default function DonePage({
@@ -25,6 +26,7 @@ export default function DonePage({
   endTime,
   setCurrentPage,
   setSelectedRoom,
+  reset,
 }: DonePage) {
   return (
     <>
@@ -57,7 +59,7 @@ export default function DonePage({
               <></>
             )}
             <button
-              onClick={() => setCurrentPage("main")}
+              onClick={() => {reset(); setCurrentPage("main");}}
               className="w-[90%] md:w-3/4 lg:w-1/2 text-center text-white rounded sm:text-lg md:text-xl lg:text-2xl py-1 md:py-2 lg:py-4 bg-yellow"
             >
               Return to Home

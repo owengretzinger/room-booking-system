@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styles from '../styles/header.module.css';
 
 const stateConstructor = (
@@ -22,6 +23,8 @@ interface Header {
   setCurrentPage: Function;
   nextButtonDisabled: boolean;
   setNextButtonDisabled: Function;
+  completedStages: number;
+  setCompletedStages: Function;
 }
 
 /**
@@ -38,7 +41,14 @@ export default function Header({
   reset,
   nextButtonDisabled,
   setNextButtonDisabled,
+  completedStages,
+  setCompletedStages,
 }: Header) {
+  useEffect(() => {
+    if (stage !== undefined && stage > completedStages) setCompletedStages(stage);
+  }, [stage, completedStages, setCompletedStages]);
+
+
   return (
     <>
       <header className="w-screen flex items-center justify-center flex-col p-5 gap-5 select-none flex-wrap fixed bg-white z-50 border-b-4 border-red">
@@ -76,24 +86,35 @@ export default function Header({
           ?
           <nav className="flex w-full lg:w-3/4 h-10 lg:h-16">
             {states.map(({ state, page }, i) => {
-              const clickable = i < stage;
-              const onClick =
-                i < stage ? { onClick: () => setCurrentPage(page) } : {};
+              const clickable = i <= completedStages && i !== stage;
+              const onClick = clickable ? { onClick: () => setCurrentPage(page) } : {};
               return (
-                <button
-                  key={i}
-                  {...onClick}
-                  className={`${i <= stage ? 'bg-red' : 'bg-neutral-300'
-                    } text-white text-[0.5rem] sm:text-xs lg:text-base box-border flex-auto w-24 ${i === 0
-                      ? styles['first-arrow']
-                      : i === states.length - 1
-                        ? styles['last-arrow']
-                        : styles['middle-arrow']
-                    } flex items-center justify-center`}
-                  disabled={!clickable}
-                >
-                  {state}
-                </button>
+                <div key={i} className={`flex-auto w-24 box-border relative inline-block
+                ${i > completedStages ? 'bg-neutral-300' : 'bg-red'}
+                 ${i === 0
+                  ? styles['first-arrow']
+                  : i === states.length - 1
+                    ? styles['last-arrow']
+                    : styles['middle-arrow']
+                }`}>
+                  <button
+                    {...onClick}
+                    className={`absolute top-[4px] bottom-[4px] left-[4px] right-[4px]
+                    ${i === stage ? 'bg-red text-white' :
+                      i <= completedStages ? 'bg-white text-red' :
+                          'bg-neutral-300 text-white'
+                      } 
+                        text-[0.5rem] sm:text-xs lg:text-base ${i === 0
+                        ? styles['inner-first-arrow']
+                        : i === states.length - 1
+                          ? styles['inner-last-arrow']
+                          : styles['inner-middle-arrow']
+                      } flex items-center justify-center`}
+                    disabled={!clickable}
+                  >
+                    {state}
+                  </button>
+                </div>
               );
             })
             }

@@ -45,10 +45,23 @@ export default function Home() {
     building: "",
   });
 
+  const [completedStages, setCompletedStages] = useState<number>(0);
+
   let next = undefined,
     back = undefined,
     stage = undefined,
     renderedPage = null;
+
+  const reset = () => {
+    setSelectedDay(new Date());
+    setSelectedSlots(new Set<number>([]));
+    setFilters({
+      capacity: new Set<string>(["Any"]),
+      utilities: new Set<string>(["Any"]),
+      buildings: new Set<string>(["Any"]),
+    });
+    setCompletedStages(0);
+  }
 
   switch (currentPage) {
     case "main":
@@ -110,6 +123,7 @@ export default function Home() {
           endTime={indexToTime(Math.max(...Array.from(selectedSlots)))}
           setCurrentPage={setCurrentPage}
           setSelectedRoom={setSelectedRoom}
+          reset={reset}
         ></DonePage>
       );
       break;
@@ -135,33 +149,20 @@ export default function Home() {
     next,
     stage,
     setCurrentPage,
-    reset: () => {
-      setSelectedDay(new Date());
-      setSelectedSlots(new Set<number>([]));
-      setFilters({
-        capacity: new Set<string>(["Any"]),
-        utilities: new Set<string>(["Any"]),
-        buildings: new Set<string>(["Any"]),
-      });
-    },
+    reset,
     nextButtonDisabled,
     setNextButtonDisabled,
+    completedStages,
+    setCompletedStages,
   };
 
   return (
     <>
-      {/* <TimeSelector /> */}
-      {/*currentPage === "main" || currentPage === "done" ? (
-        renderedPage
-      ) : */(
-          <>
-            <Header {...headerProps}></Header>
-            <div className={`
-            ${currentPage === "main" || currentPage === "done" || currentPage === "cancel" ? "" :
-                "pt-52 relative"}
-            `}>{renderedPage}</div>
-          </>
-        )}
+      <Header {...headerProps}></Header>
+      <div className={`
+        ${currentPage === "main" || currentPage === "done" || currentPage === "cancel" ? "" :
+          "pt-52 relative"}
+        `}>{renderedPage}</div>
     </>
   );
 }
