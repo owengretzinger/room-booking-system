@@ -40,7 +40,7 @@ export default function CancelPage({
             isLoggedIn={true}
             setCurrentPage={setCurrentPage}
             isConfirmed={true}
-            isCancelPage={false}
+            isCancelPage={true}
             setSelectedRoom={setSelectedRoom}
           ></RoomDetails>
         )}
