@@ -1,10 +1,10 @@
 import { GrGroup, GrPlug } from 'react-icons/gr';
-import { CiCircleCheck, CiCircleRemove } from 'react-icons/ci';
 import { MdCheck } from "react-icons/md";
 import { BiError } from "react-icons/bi";
 import Image from 'next/image';
 import { utilityToIcon } from '@/sections/FiltersPage';
 import { Utility } from '@/sections/RoomsPage';
+import { useState } from 'react';
 
 export type Room = {
   score: number;
@@ -31,17 +31,28 @@ export default function RoomCard({
   setSelectedRoom,
   setCurrentPage,
 }: RoomCard) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <div className="flex h-[250px] p-4 border-red border-4 rounded-xl gap-4 w-full md:w-[750px]">
       {/* image */}
-      <div className="h-full aspect-square bg-gray-400 rounded-xl hidden sm:block">
+      <div className="h-full aspect-square rounded-xl hidden sm:block relative">
         <Image
           src={`/images/room-images/${room.image}`}
           width={210}
           height={210}
           className="rounded-xl w-full h-full object-cover"
           alt="Picture of the room"
+          onLoad={() => setImageLoaded(true)}
         />
+        {!imageLoaded &&
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div
+              className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-red border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+              role="status">
+            </div>
+          </div>
+        }
       </div>
 
       {/* info */}
