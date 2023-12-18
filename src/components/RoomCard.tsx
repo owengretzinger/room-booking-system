@@ -16,6 +16,7 @@ export type Room = {
   capacity: number;
   utilities: Set<Utility>;
   building: string;
+  image: string;
 }
 
 interface RoomCard {
@@ -34,9 +35,9 @@ export default function RoomCard({
       {/* image */}
       <div className="h-full aspect-square bg-gray-400 rounded-xl hidden sm:block">
         <Image
-          src="/images/room-sample.jpg"
-          width={100}
-          height={100}
+          src={`/images/${room.image}`}
+          width={210}
+          height={210}
           className="rounded-xl w-full h-full object-cover"
           alt="Picture of the room"
         />

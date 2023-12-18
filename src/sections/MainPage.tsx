@@ -22,7 +22,7 @@ export default function MainPage({ setCurrentPage, bookedRooms, setBookedRooms }
         onClick={() => setCurrentPage('datetime')}
         className={`${optionClasses} bg-amber-350`}
       >
-        Start New Booking
+        Book a Room
       </button>
       <button
         onClick={() => setCurrentPage('cancel')}
