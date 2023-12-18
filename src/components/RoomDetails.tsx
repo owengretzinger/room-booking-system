@@ -38,14 +38,12 @@ export default function RoomDetails({
           {" "}
           Get Directions{" "}
         </button>
-        {/* darken background */}
         <Popup open={open} closeOnDocumentClick onClose={closeModal} overlayStyle={{ background: 'rgba(0,0,0,0.2)' }} >
           <div className="w-[80vw] h-[80vh] bg-white border-4 border-red flex flex-col items-center">
             <button
               className="cursor-pointer absolute block p-1 -right-4 -top-4 bg-white border-4 border-red rounded-full"
               onClick={closeModal}
             >
-              {/* &times; */}
               <FaXmark size={24} />
             </button>
             <div className="h-full w-full flex flex-col">
