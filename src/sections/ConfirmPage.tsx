@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 import RoomDetails from "@/components/RoomDetails";
 
@@ -20,6 +20,8 @@ interface ConfirmPage {
   startTime: string;
   endTime: string;
   setCurrentPage: Function;
+  isLoggedIn: boolean;
+  setIsLoggedIn: Function;
 }
 
 export default function ConfirmPage({
@@ -28,9 +30,10 @@ export default function ConfirmPage({
   startTime,
   endTime,
   setCurrentPage,
+  isLoggedIn,
+  setIsLoggedIn,
 }: ConfirmPage) {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [email, setEmail] = React.useState<string[]>([]);
+  const [email, setEmail] = useState<string[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
