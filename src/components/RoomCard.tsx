@@ -1,17 +1,20 @@
 import { GrGroup, GrPlug } from 'react-icons/gr';
 import { CiCircleCheck, CiCircleRemove } from 'react-icons/ci';
+import { MdCheck } from "react-icons/md";
 import { BiError } from "react-icons/bi";
 import Image from 'next/image';
+import { utilityToIcon } from '@/sections/FiltersPage';
+import { Utility } from '@/sections/RoomsPage';
 
 export type Room = {
   score: number;
-  capacityMatches: boolean;
-  matchingUtilities: string[];
-  missingUtilities: string[];
-  buildingMatches: boolean;
+  capacityMatches: boolean | null;
+  matchingUtilities: Utility[];
+  missingUtilities: Utility[];
+  buildingMatches: boolean | null;
   name: string;
   capacity: number;
-  utilities: Set<string>;
+  utilities: Set<Utility>;
   building: string;
 }
 
@@ -42,19 +45,22 @@ export default function RoomCard({
       {/* info */}
       <div className="flex flex-col gap-4 text-red flex-1">
         <div className="">
-          <div className="flex gap-1 items-center">
+          <div className={`flex gap-2 items-center ${room.buildingMatches === false ? "text-rose-700" : ""}`}>
+            <BiError size={24} className={`${room.buildingMatches !== false ? "hidden" : ""}`} />
             <div>{room.building}</div>
-            <BiError className={`text-xl ${room.buildingMatches ? "hidden" : ""}`} />
+            {room.buildingMatches === true && <MdCheck className="-ml-1" size={24} />}
           </div>
-          <div className="text-4xl leading-7 -mt-[6px]">{room.name}</div>
+          <div className="text-4xl leading-7 -mt-[5px]">{room.name}</div>
         </div>
         <div className="w-full flex">
-          <div className="basis-1/2 flex items-center gap-2">
-            <GrGroup className="" size={24} />
-            <div className="flex gap-1 items-center">
-              <span className="">{room.capacity} people</span>
-              <BiError className={`text-xl ${room.capacityMatches ? "hidden" : ""}`} />
-            </div>
+          <div className={`basis-1/2 flex items-center gap-2 ${room.capacityMatches === false ? "text-rose-700" : ""}`}>
+            {room.capacityMatches !== false ?
+              <GrGroup size={24} />
+              :
+              <BiError size={24} className={`${room.capacityMatches ? "hidden" : ""}`} />
+            }
+            <span>{room.capacity} people</span>
+            {room.capacityMatches === true && <MdCheck className="-ml-1" size={24} />}
           </div>
           <div className="basis-1/2 flex items-center gap-2">
             <GrPlug className="" size={24} />
@@ -62,22 +68,38 @@ export default function RoomCard({
           </div>
         </div>
         <div className="flex">
-          {room.matchingUtilities.length > 0 ? (
+          {(room.matchingUtilities.length > 0 || room.utilities.size > 0) &&
             <ul className="basis-1/2">
-              {room.matchingUtilities.map((util, i) => {
-                return (
-                  <li
-                    className="flex items-center gap-2 text-green-700"
-                    key={i}
-                  >
-                    <CiCircleCheck className="" size={24} />
-                    <span className="">{util}</span>
-                  </li>
-                );
-              })}
+              {
+                room.matchingUtilities.map((util, i) => {
+                  return (
+                    <li
+                      className="flex items-center gap-2 text-red"
+                      key={i}
+                    >
+                      {utilityToIcon[util]}
+                      <span className="">{util}</span>
+                      <MdCheck className="-ml-1" size={24} />
+                    </li>
+                  );
+                })
+              }
+              {
+                Array.from(room.utilities).filter((util) => !room.matchingUtilities.includes(util)).map((util, i) => {
+                  return (
+                    <li
+                      className="flex items-center gap-2 text-red"
+                      key={i}
+                    >
+                      {utilityToIcon[util]}
+                      <span className="">{util}</span>
+                    </li>
+                  );
+                })
+              }
             </ul>
-          ) : null}
-          {room.missingUtilities.length > 0 ? (
+          }
+          {room.missingUtilities.length > 0 &&
             <ul className="basis-1/2">
               {room.missingUtilities.map((util, i) => {
                 return (
@@ -85,13 +107,13 @@ export default function RoomCard({
                     className="flex items-center gap-2 text-rose-700"
                     key={i}
                   >
-                    <CiCircleRemove className="" size={24} />
-                    <span className="">{util}</span>
+                    <BiError className="" size={24} />
+                    <span className="">No {util.toLowerCase()}</span>
                   </li>
                 );
               })}
             </ul>
-          ) : null}
+          }
         </div>
       </div>
 

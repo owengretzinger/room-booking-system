@@ -3,27 +3,17 @@ import React from "react";
 import Popup from "reactjs-popup";
 import { GrGroup } from "react-icons/gr";
 import { CiCircleCheck, CiCircleRemove } from "react-icons/ci";
+import { BookedRoom } from "@/sections/CancelPage";
+import { set } from "date-fns";
+import { utilityToIcon } from "@/sections/FiltersPage";
+import { Room } from "./RoomCard";
 
 interface RoomDetails {
-  room: {
-    score: number;
-    capacityMatches: boolean;
-    matchingUtilities: string[];
-    missingUtilities: string[];
-    buildingMatches: boolean;
-    name: string;
-    capacity: number;
-    utilities: Set<string>;
-    building: string;
-  };
+  room: Room;
   date: string;
   startTime: string;
   endTime: string;
-  isLoggedIn: boolean;
-  setCurrentPage: Function;
-  isConfirmed: boolean;
-  isCancelPage: boolean;
-  setSelectedRoom: Function;
+  cancelButton?: JSX.Element;
 }
 
 export default function RoomDetails({
@@ -31,23 +21,14 @@ export default function RoomDetails({
   date,
   startTime,
   endTime,
-  isLoggedIn,
-  setCurrentPage,
-  isConfirmed,
-  isCancelPage,
-  setSelectedRoom,
+  cancelButton,
 }: RoomDetails) {
   const [open, setOpen] = React.useState(false);
   const closeModal = () => setOpen(false);
 
   return (
-    <div className="flex flex-col items-start">
-      {/* Title */}
-      <h1 className="text-2xl font-bold text-red mb-2">
-        {isCancelPage ? "" : "Room Details"}
-      </h1>
-      {/* Boooking Info */}
-      <div className="flex flex-col gap-1 items-start border-4 border-red px-10 py-5 rounded-lg">
+    <>
+      <div className="flex flex-col gap-1 items-start border-4 border-red p-5 rounded-lg w-[350px] h-full">
         <h2 className="text-xl font-bold">
           {room.building} - {room.name}
         </h2>
@@ -79,68 +60,31 @@ export default function RoomDetails({
         <p className="text-lg">
           Time: {startTime} - {endTime}
         </p>
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-1">
           <li className="flex items-center gap-2">
             <GrGroup className="" size={24} />
             <span className="">{room.capacity} people</span>
           </li>
-          {room.matchingUtilities.length > 0
-            ? room.matchingUtilities.map((util, i) => {
+          {
+            Array.from(room.utilities).map((util, i) => {
               return (
                 <li
-                  className="flex items-center gap-2 text-green-700"
+                  className="flex items-center gap-2"
                   key={i}
                 >
-                  <CiCircleCheck className="" size={24} />
+                  {utilityToIcon[util]}
                   <span className="">{util}</span>
                 </li>
               );
             })
-            : null}
-          {room.missingUtilities.length > 0
-            ? room.missingUtilities.map((util, i) => {
-              return (
-                <li
-                  className="flex items-center gap-2 text-rose-700"
-                  key={i}
-                >
-                  <CiCircleRemove className="" size={24} />
-                  <span className="">{util}</span>
-                </li>
-              );
-            })
-            : null}
+          }
         </ul>
+        {cancelButton &&
+          <div className="w-full pt-5 mt-auto">
+            {cancelButton}
+          </div>
+        }
       </div>
-      {/* Confirmation Button */}
-      {room.score != 0 ? (
-        <button
-          disabled={!isLoggedIn}
-          className={`${isLoggedIn
-            ? ""
-            : "opacity-40 cursor-not-allowed"
-            } ${isConfirmed || !isLoggedIn ? "bg-red" : "bg-yellow"}
-          text-white rounded-lg w-full py-2 my-5`}
-          onClick={() => {
-            isConfirmed
-              ? setSelectedRoom({
-                score: 0, // To show cancelled
-                has: [],
-                missing: [],
-                matchingCapacity: true,
-                name: "",
-                capacity: 0,
-                utilities: new Set<string>([]),
-                building: "",
-              })
-              : setCurrentPage("done");
-          }}
-        >
-          {isConfirmed ? "Cancel Reservation" : "Confirm"}
-        </button>
-      ) : (
-        <></>
-      )}
-    </div>
+    </>
   );
 }

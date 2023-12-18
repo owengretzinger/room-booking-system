@@ -1,8 +1,11 @@
 import { GrGroup, GrPlug } from 'react-icons/gr';
 import { FaRegBuilding } from "react-icons/fa";
+import { BsProjector } from "react-icons/bs";
+import { BiSolidChalkboard, BiChalkboard } from "react-icons/bi";
+import { RiComputerLine } from "react-icons/ri";
 import FilterButtons from '../components/FilterButtons';
 import Image from 'next/image';
-import { buildings, utilities } from './RoomsPage';
+import { Utility, buildings, utilities } from './RoomsPage';
 
 // Capacity Options
 const capacityOptions = ['Any', '1-4', '5-9', '10-20', '>20'];
@@ -10,6 +13,13 @@ const capacityOptions = ['Any', '1-4', '5-9', '10-20', '>20'];
 const utilityOptions = utilities;
 // Building Options
 const buildingOptions = buildings;
+
+export const utilityToIcon = {
+  'Projector': <BsProjector size={24} />,
+  'Whiteboard': <BiChalkboard size={24} />,
+  'Blackboard': <BiSolidChalkboard size={24} />,
+  'Computer': <RiComputerLine size={24} />,
+}
 
 interface FiltersPage {
   filters: {

@@ -102,7 +102,7 @@ const getRooms = (filters: {
     let numMatches = 0;
 
     // capacity
-    let capacityMatches = true;
+    let capacityMatches = null;
     if (!filters.capacity.has('Any')) {
       capacityMatches = false;
       if (capacityMatch(filters.capacity, room.capacity)) {
@@ -126,7 +126,7 @@ const getRooms = (filters: {
     }
 
     // buildings
-    let buildingMatches = true;
+    let buildingMatches = null;
     if (!filters.buildings.has('Any')) {
       buildingMatches = false;
       if (filters.buildings.has('Any') || filters.buildings.has(room.building)) {
@@ -174,7 +174,7 @@ export default function RoomsPage({
 
   return (
     <>
-      <main className="flex flex-col items-center justify-between px-2">
+      <main className="flex flex-col items-center justify-between px-2 pb-4">
         <div className="flex flex-col gap-8 w-full items-center">
           {filteredRooms.map((room, idx) => {
             return (
