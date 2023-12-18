@@ -9,7 +9,7 @@ const roomMaker = (
   return { name, capacity, utilities, building };
 };
 
-const ghc = 'Gerald Hatch Center';
+const ghc = 'Gerald Hatch Centre';
 const mills = 'Mills';
 const thode = 'Thode';
 const hsl = 'Health Science Library';
