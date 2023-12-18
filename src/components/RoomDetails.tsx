@@ -123,9 +123,10 @@ export default function RoomDetails({
           disabled={!isLoggedIn}
           className={`${
             isLoggedIn
-              ? "bg-amber-350"
-              : "bg-yellow opacity-40 cursor-not-allowed"
-          } text-white rounded-lg w-full py-2 my-5`}
+              ? ""
+              : "opacity-40 cursor-not-allowed"
+          } ${isConfirmed || !isLoggedIn ? "bg-red" : "bg-yellow"}
+          text-white rounded-lg w-full py-2 my-5`}
           onClick={() => {
             isConfirmed
               ? setSelectedRoom({

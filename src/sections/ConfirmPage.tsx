@@ -53,7 +53,7 @@ export default function ConfirmPage({
 
   return (
     <>
-      <main className="flex flex-row items-center justify-center mx-20">
+      <main className={`flex flex-row ${isLoggedIn ? "" : "items-center"} justify-center mx-20`}>
         <div className="flex flex-col items-start w-1/2 mr-5">
           {isLoggedIn ? (
             <>
@@ -64,8 +64,7 @@ export default function ConfirmPage({
                 doej@mcmaster.ca
               </h1>
               <h1 className="text-2xl font-bold text-red mt-10">
-                Optionally add group member emails to send them confirmation &
-                directions
+                Optionally add group member emails to send them confirmation & directions:
               </h1>
               <div className="flex flex-col items-start w-full">
                 {email.map((email, index) => (
@@ -102,7 +101,7 @@ export default function ConfirmPage({
             </>
           ) : (
             <button
-              className="bg-red text-white rounded-lg w-[80%] px-10 py-4 my-5"
+              className="bg-yellow text-white rounded-lg w-[80%] px-10 py-4 my-5"
               onClick={() => setIsLoggedIn(true)}
             >
               Log In With Avenue
