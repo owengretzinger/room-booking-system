@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "../components/Header";
-import CancelPage from "../sections/CancelPage";
+import CancelPage, { BookedRoom } from "../sections/CancelPage";
 import ConfirmPage from "../sections/ConfirmPage";
 import DonePage from "../sections/DonePage";
 import DatetimePage from "../sections/DatetimePage";
@@ -34,12 +34,13 @@ export default function Home() {
     buildingMatches: true,
     name: "",
     capacity: 0,
-    utilities: new Set<string>([]),
+    utilities: new Set<Utility>(),
     building: "",
   });
 
   const [completedStages, setCompletedStages] = useState<number>(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [bookedRooms, setBookedRooms] = useState<BookedRoom[]>([]);
 
   let next = undefined,
     back = undefined,
@@ -59,7 +60,13 @@ export default function Home() {
 
   switch (currentPage) {
     case "main":
-      renderedPage = <MainPage setCurrentPage={setCurrentPage}></MainPage>;
+      renderedPage = (
+        <MainPage
+          setCurrentPage={setCurrentPage}
+          bookedRooms={bookedRooms}
+          setBookedRooms={setBookedRooms}
+        ></MainPage>
+      );
       break;
     case "datetime":
       back = "main";
@@ -112,6 +119,8 @@ export default function Home() {
           setCurrentPage={setCurrentPage}
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}
+          bookedRooms={bookedRooms}
+          setBookedRooms={setBookedRooms}
         ></ConfirmPage>
       );
       break;
@@ -125,6 +134,8 @@ export default function Home() {
           setCurrentPage={setCurrentPage}
           setSelectedRoom={setSelectedRoom}
           reset={reset}
+          bookedRooms={bookedRooms}
+          setBookedRooms={setBookedRooms}
         ></DonePage>
       );
       break;
@@ -132,12 +143,11 @@ export default function Home() {
       back = "main";
       renderedPage = (
         <CancelPage
-          room={selectedRoom}
-          date={format(selectedDay, "EEEE, LLLL d, yyyy")}
-          startTime={indexToTime(Math.min(...Array.from(selectedSlots)) - 1)}
-          endTime={indexToTime(Math.max(...Array.from(selectedSlots)))}
-          setCurrentPage={setCurrentPage}
-          setSelectedRoom={setSelectedRoom}
+          bookedRooms={bookedRooms}
+          setBookedRooms={setBookedRooms}
+        // date={format(selectedDay, "EEEE, LLLL d, yyyy")}
+        // startTime={indexToTime(Math.min(...Array.from(selectedSlots)) - 1)}
+        // endTime={indexToTime(Math.max(...Array.from(selectedSlots)))}
         ></CancelPage>
       );
       break;

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import RoomDetails from "@/components/RoomDetails";
 import { Room } from "@/components/RoomCard";
+import { BookedRoom } from "./CancelPage";
 
 let counter = 0;
 
@@ -14,6 +15,8 @@ interface ConfirmPage {
   setCurrentPage: Function;
   isLoggedIn: boolean;
   setIsLoggedIn: Function;
+  bookedRooms: BookedRoom[];
+  setBookedRooms: Function;
 }
 
 export default function ConfirmPage({
@@ -24,6 +27,8 @@ export default function ConfirmPage({
   setCurrentPage,
   isLoggedIn,
   setIsLoggedIn,
+  bookedRooms,
+  setBookedRooms,
 }: ConfirmPage) {
   const [email, setEmail] = useState<string[]>([]);
 
@@ -103,17 +108,39 @@ export default function ConfirmPage({
             </button>
           )}
         </div>
-        <RoomDetails
-          room={room}
-          date={date}
-          startTime={startTime}
-          endTime={endTime}
-          isLoggedIn={isLoggedIn}
-          setCurrentPage={setCurrentPage}
-          isConfirmed={false}
-          isCancelPage={false}
-          setSelectedRoom={() => {}}
-        />
+        <div className="flex flex-col items-start">
+          <h1 className="text-2xl font-bold text-red mb-2">
+            Room Details
+          </h1>
+          <RoomDetails
+            room={room}
+            date={date}
+            startTime={startTime}
+            endTime={endTime}
+          />
+          {/* Confirmation Button */}
+          <button
+            disabled={!isLoggedIn}
+            className={`${isLoggedIn
+              ? ""
+              : "opacity-40 cursor-not-allowed"
+              } ${!isLoggedIn ? "bg-red" : "bg-yellow"}
+          text-white rounded-lg w-full py-2 my-5`}
+            onClick={() => {
+              setCurrentPage("done");
+              setBookedRooms([...bookedRooms, {
+                room: room,
+                date: date,
+                startTime: startTime,
+                endTime: endTime,
+                bookingId: Math.max(...bookedRooms.map((bookedRoom: BookedRoom) => bookedRoom.bookingId), 0) + 1,
+                bookingCancelled: false,
+              }]);
+            }}
+          >
+            Confirm
+          </button>
+        </div>
       </main>
     </>
   );
