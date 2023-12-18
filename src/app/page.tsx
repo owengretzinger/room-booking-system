@@ -46,6 +46,7 @@ export default function Home() {
   });
 
   const [completedStages, setCompletedStages] = useState<number>(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   let next = undefined,
     back = undefined,
@@ -111,6 +112,8 @@ export default function Home() {
           startTime={indexToTime(Math.min(...Array.from(selectedSlots)) - 1)}
           endTime={indexToTime(Math.max(...Array.from(selectedSlots)))}
           setCurrentPage={setCurrentPage}
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
         ></ConfirmPage>
       );
       break;
