@@ -75,12 +75,12 @@ export default function RoomCard({
           </button>
           <Popup open={mobileImageOpen} closeOnDocumentClick onClose={() => setMobileImageOpen(false)} overlayStyle={{ background: 'rgba(0,0,0,0.2)' }} >
             <div className="w-[90vw] aspect-square flex flex-col items-center">
-              <div className="h-full aspect-square relative bg-white border-4 border-red rounded-xl">
+              <div className="h-full aspect-square relative bg-white border-4 border-red">
                 <Image
                   src={`/images/room-images/${room.image}`}
                   width={210}
                   height={210}
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-full h-full object-cover"
                   alt="Picture of the room"
                   onLoad={() => setImageLoaded(true)}
                 />
