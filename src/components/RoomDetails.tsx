@@ -40,7 +40,7 @@ export default function RoomDetails({
           Get Directions{" "}
         </button>
         <Popup open={open} closeOnDocumentClick onClose={closeModal} overlayStyle={{ background: 'rgba(0,0,0,0.2)' }} >
-          <div className="w-[80vw] h-[80vh] bg-white border-4 border-red flex flex-col items-center">
+          <div className="w-[90vw] aspect-square max-h-[90vh] sm:w-[80vw] sm:h-[80vh] bg-white border-4 border-red flex flex-col items-center">
             <button
               className="cursor-pointer absolute block p-1 -right-4 -top-4 bg-white border-4 border-red rounded-full"
               onClick={closeModal}
