@@ -103,7 +103,7 @@ export default function ConfirmPage({
             </>
           ) : (
             <button
-              className="bg-yellow text-white rounded-lg w-[350px] md:w-[80%] px-10 py-4 my-5"
+              className="bg-yellow text-white rounded-lg w-[350px] md:w-[80%] py-2 my-5"
               onClick={() => setIsLoggedIn(true)}
             >
               Log In With Avenue

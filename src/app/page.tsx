@@ -11,7 +11,7 @@ import RoomsPage, { Building, Utility } from "../sections/RoomsPage";
 
 import { format } from "date-fns";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Room } from "@/components/RoomCard";
 
 export default function Home() {
@@ -59,6 +59,10 @@ export default function Home() {
     });
     setCompletedStages(0);
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   switch (currentPage) {
     case "main":
