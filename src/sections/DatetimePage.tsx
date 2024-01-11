@@ -35,7 +35,7 @@ export default function Datetime({
 
   return (
     <>
-      <main className="flex justify-center gap-4 items-stretch min-h-[calc(100vh_-_208px)]">
+      <main className="flex flex-col lg:flex-row justify-center gap-8 lg:gap-4 items-stretch min-h-[calc(100vh_-_208px)]">
         <DayPicker
           showOutsideDays
           mode="single"

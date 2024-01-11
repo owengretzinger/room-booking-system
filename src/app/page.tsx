@@ -175,7 +175,7 @@ export default function Home() {
       <Header {...headerProps}></Header>
       <div className={`
         ${currentPage === "main" || currentPage === "done" || currentPage === "cancel" ? "" :
-          "pt-52 relative"}
+          "pt-40 md:pt-44 lg:pt-52 relative mx-2 pb-12 lg:pb-0"}
         `}>{renderedPage}</div>
     </>
   );

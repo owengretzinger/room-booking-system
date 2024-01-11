@@ -28,8 +28,8 @@ export default function DonePage({
 }: DonePage) {
   return (
     <>
-      <main className="w-screen h-screen flex justify-center items-center">
-        <div className="w-full flex flex-row items-center justify-center mx-20 gap-32">
+      <main className="w-screen h-screen flex justify-center md:items-center pt-24 md:pt-0">
+        <div className="w-[350px] md:w-full flex flex-col md:flex-row items-center justify-center lg:mx-20 gap-8 lg:gap-32">
           <div className="flex flex-col items-end basis-1/2">
             <div className="flex flex-col items-start">
               <h1 className="text-2xl font-bold text-red mb-2">
@@ -72,7 +72,7 @@ export default function DonePage({
                 <h1 className="text-4xl font-bold text-red">
                   Booking Confirmed!
                 </h1>
-                <div className="flex gap-1 items-center text-red mb-5 text-2xl">
+                <div className="flex gap-1 items-center text-red text-2xl">
                   <p className="font-bold">
                     Email Confirmation Sent
                   </p>
@@ -84,7 +84,8 @@ export default function DonePage({
             )}
             <button
               onClick={() => { reset(); setCurrentPage("main"); }}
-              className="w-3/4 text-center text-white rounded sm:text-lg md:text-xl lg:text-2xl py-1 md:py-2 lg:py-4 bg-yellow"
+              // bg-red text-white rounded-lg w-full py-2 my-5
+              className="w-[350px] text-center text-white rounded py-2 my-5 bg-yellow"
             >
               Return to Home
             </button>

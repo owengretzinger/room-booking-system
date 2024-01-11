@@ -24,7 +24,7 @@ export default function CancelPage({
     <>
       <main className="pt-32 flex flex-col gap-4 justify-center items-center pb-8">
         <h1 className="text-2xl font-bold text-red mb-2">Future Reservations</h1>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-4 w-full px-32 justify-items-center place-items-stretch">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-4 w-full px-2 lg:px-32 justify-items-center place-items-stretch">
           {bookedRooms.length === 0 ? (
             <div className="text-red text-2xl">No future reservations</div>
           ) : (
