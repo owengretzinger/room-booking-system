@@ -133,7 +133,7 @@ export default function Timepicker({
   return (
     <div className="flex flex-col">
       <div
-        className="flex flex-col border-2 border-red rounded-md w-[300px] h-full"
+        className="flex flex-col border-2 border-red rounded-md w-[300px] min-h-[1400px] lg:min-h-0 h-full"
         id="timeslots"
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}

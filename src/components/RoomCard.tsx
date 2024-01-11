@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { utilityToIcon } from '@/sections/FiltersPage';
 import { Utility } from '@/sections/RoomsPage';
 import { useState } from 'react';
+import Popup from 'reactjs-popup';
+import { FaXmark } from 'react-icons/fa6';
 
 export type Room = {
   score: number;
@@ -32,119 +34,161 @@ export default function RoomCard({
   setCurrentPage,
 }: RoomCard) {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [mobileImageOpen, setMobileImageOpen] = useState(false);
 
   return (
-    <div className="flex h-[250px] p-4 border-red border-4 rounded-xl gap-4 w-full md:w-[750px]">
-      {/* image */}
-      <div className="h-full aspect-square rounded-xl hidden sm:block relative">
-        <Image
-          src={`/images/room-images/${room.image}`}
-          width={210}
-          height={210}
-          className="rounded-xl w-full h-full object-cover"
-          alt="Picture of the room"
-          onLoad={() => setImageLoaded(true)}
-        />
-        {!imageLoaded &&
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div
-              className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-red border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-              role="status">
+    <div className="flex flex-col md:h-[250px] p-4 border-red border-4 rounded-xl gap-4 w-full md:w-[750px]">
+      <div className="flex gap-4 w-full h-full">
+
+        {/* image */}
+        <div className="h-full aspect-square rounded-xl hidden md:block relative">
+          <Image
+            src={`/images/room-images/${room.image}`}
+            width={210}
+            height={210}
+            className="rounded-xl w-full h-full object-cover"
+            alt="Picture of the room"
+            onLoad={() => setImageLoaded(true)}
+          />
+          {!imageLoaded &&
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <div
+                className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-red border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                role="status">
+              </div>
+            </div>
+          }
+        </div>
+
+        {/* info */}
+        <div className="flex flex-col gap-4 text-red flex-1">
+          <div className="">
+            <div className={`flex gap-2 items-center ${room.buildingMatches === false ? "text-rose-700" : ""}`}>
+              <BiError size={24} className={`${room.buildingMatches !== false ? "hidden" : ""}`} />
+              <div>{room.building}</div>
+              {room.buildingMatches === true && <MdCheck className="-ml-1" size={24} />}
+            </div>
+            <div className="text-4xl leading-7 md:-mt-[5px]">{room.name}</div>
+          </div>
+          <button onClick={() => setMobileImageOpen(true)} className="w-fit block md:hidden border-4 rounded-xl border-red px-4 py-2">
+            View room image
+          </button>
+          <Popup open={mobileImageOpen} closeOnDocumentClick onClose={() => setMobileImageOpen(false)} overlayStyle={{ background: 'rgba(0,0,0,0.2)' }} >
+            <div className="w-[90vw] aspect-square  flex flex-col items-center">
+              <div className="h-full aspect-square relative">
+                <Image
+                  src={`/images/room-images/${room.image}`}
+                  width={210}
+                  height={210}
+                  className="w-full h-full object-cover border-4 border-red rounded-xl"
+                  alt="Picture of the room"
+                  onLoad={() => setImageLoaded(true)}
+                />
+                {!imageLoaded &&
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div
+                      className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-red border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                      role="status">
+                    </div>
+                  </div>
+                }
+              </div>
+              <button
+                className="cursor-pointer absolute block p-1 -right-4 -top-4 bg-white border-4 border-red rounded-full"
+                onClick={() => setMobileImageOpen(false)}
+              >
+                <FaXmark size={24} />
+              </button>
+            </div>
+          </Popup>
+          <div className="w-full flex flex-col sm:flex-row">
+            <div className={`basis-1/2 flex items-center gap-2 ${room.capacityMatches === false ? "text-rose-700" : ""}`}>
+              {room.capacityMatches !== false ?
+                <GrGroup size={24} />
+                :
+                <BiError size={24} className={`${room.capacityMatches ? "hidden" : ""}`} />
+              }
+              <span>{room.capacity} people</span>
+              {room.capacityMatches === true && <MdCheck className="-ml-1" size={24} />}
+            </div>
+            <div className="basis-1/2 flex items-center gap-2">
+              <GrPlug className="" size={24} />
+              <span className="">{room.numOutlets} outlets</span>
             </div>
           </div>
-        }
-      </div>
-
-      {/* info */}
-      <div className="flex flex-col gap-4 text-red flex-1">
-        <div className="">
-          <div className={`flex gap-2 items-center ${room.buildingMatches === false ? "text-rose-700" : ""}`}>
-            <BiError size={24} className={`${room.buildingMatches !== false ? "hidden" : ""}`} />
-            <div>{room.building}</div>
-            {room.buildingMatches === true && <MdCheck className="-ml-1" size={24} />}
-          </div>
-          <div className="text-4xl leading-7 -mt-[5px]">{room.name}</div>
-        </div>
-        <div className="w-full flex">
-          <div className={`basis-1/2 flex items-center gap-2 ${room.capacityMatches === false ? "text-rose-700" : ""}`}>
-            {room.capacityMatches !== false ?
-              <GrGroup size={24} />
-              :
-              <BiError size={24} className={`${room.capacityMatches ? "hidden" : ""}`} />
+          <div className="flex flex-col md:flex-row">
+            {(room.matchingUtilities.length > 0 || room.utilities.size > 0) &&
+              <ul className="basis-1/2">
+                {
+                  room.matchingUtilities.map((util, i) => {
+                    return (
+                      <li
+                        className="flex items-center gap-2 text-red"
+                        key={i}
+                      >
+                        {utilityToIcon[util]}
+                        <span className="">{util}</span>
+                        <MdCheck className="-ml-1" size={24} />
+                      </li>
+                    );
+                  })
+                }
+                {
+                  Array.from(room.utilities).filter((util) => !room.matchingUtilities.includes(util)).map((util, i) => {
+                    return (
+                      <li
+                        className="flex items-center gap-2 text-red"
+                        key={i}
+                      >
+                        {utilityToIcon[util]}
+                        <span className="">{util}</span>
+                      </li>
+                    );
+                  })
+                }
+              </ul>
             }
-            <span>{room.capacity} people</span>
-            {room.capacityMatches === true && <MdCheck className="-ml-1" size={24} />}
-          </div>
-          <div className="basis-1/2 flex items-center gap-2">
-            <GrPlug className="" size={24} />
-            <span className="">{room.numOutlets} outlets</span>
-          </div>
-        </div>
-        <div className="flex">
-          {(room.matchingUtilities.length > 0 || room.utilities.size > 0) &&
-            <ul className="basis-1/2">
-              {
-                room.matchingUtilities.map((util, i) => {
+            {room.missingUtilities.length > 0 &&
+              <ul className="basis-1/2">
+                {room.missingUtilities.map((util, i) => {
                   return (
                     <li
-                      className="flex items-center gap-2 text-red"
+                      className="flex items-center gap-2 text-rose-700"
                       key={i}
                     >
-                      {utilityToIcon[util]}
-                      <span className="">{util}</span>
-                      <MdCheck className="-ml-1" size={24} />
+                      <BiError className="" size={24} />
+                      <span className="">No {util[0].toLowerCase()}{util.slice(1)}</span>
                     </li>
                   );
-                })
-              }
-              {
-                Array.from(room.utilities).filter((util) => !room.matchingUtilities.includes(util)).map((util, i) => {
-                  return (
-                    <li
-                      className="flex items-center gap-2 text-red"
-                      key={i}
-                    >
-                      {utilityToIcon[util]}
-                      <span className="">{util}</span>
-                    </li>
-                  );
-                })
-              }
-            </ul>
-          }
-          {room.missingUtilities.length > 0 &&
-            <ul className="basis-1/2">
-              {room.missingUtilities.map((util, i) => {
-                return (
-                  <li
-                    className="flex items-center gap-2 text-rose-700"
-                    key={i}
-                  >
-                    <BiError className="" size={24} />
-                    <span className="">No {util[0].toLowerCase()}{util.slice(1)}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          }
+                })}
+              </ul>
+            }
+          </div>
         </div>
-      </div>
 
-      {/* match */}
-      <div className="flex flex-col h-full p-4 gap-4">
-        <div className="h-full flex justify-center items-center">
-          <ProgressCircle percentFilled={room.score} />
+        {/* match */}
+        <div className="flex flex-col h-full min-[400px]:p-4 gap-4">
+          <div className="h-full flex justify-center items-center">
+            <ProgressCircle percentFilled={room.score} />
+          </div>
+          <button
+            className="w-full text-white bg-amber-350 rounded-xl px-4 py-2 text-center hidden md:block"
+            onClick={() => {
+              setSelectedRoom(room);
+              setCurrentPage('confirm');
+            }}>
+            Book Now
+          </button>
         </div>
-        <button
-          className="w-full text-white bg-amber-350 rounded-xl px-4 py-2 text-center"
-          onClick={() => {
-            setSelectedRoom(room);
-            setCurrentPage('confirm');
-          }}
-        >
-          Book Now
-        </button>
       </div>
+      <button
+        className="w-full text-white bg-amber-350 rounded-xl px-4 py-2 text-center block md:hidden"
+        onClick={() => {
+          setSelectedRoom(room);
+          setCurrentPage('confirm');
+        }}>
+        Book Now
+      </button>
     </div>
   );
 }

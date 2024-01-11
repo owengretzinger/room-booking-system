@@ -81,7 +81,19 @@ export default function Header({
             McMaster Room Booking
           </button>
 
-          <div className="flex-1 max-w-[12rem] min-w-[4rem]"></div>
+          <div className="hidden lg:block flex-1 max-w-[12rem] min-w-[4rem]"></div>
+          <div className="block lg:hidden flex-1 max-w-[12rem] min-w-[4rem]">
+            {next && (
+              <button
+                onClick={() => setCurrentPage(next)}
+                disabled={nextButtonDisabled}
+                className={`flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl rounded-xl h-10 md:h-12 lg:h-16 w-full text-white bg-yellow pointer-events-auto ${nextButtonDisabled ? 'opacity-40 cursor-not-allowed' : ''
+                  }`}
+              >
+                Next
+              </button>
+            )}
+          </div>
         </nav>
         {/* Navigation Bar */}
         {stage !== undefined
@@ -94,16 +106,16 @@ export default function Header({
                 <div key={i} className={`flex-auto w-24 box-border relative inline-block
                 ${i > completedStages ? 'bg-neutral-300' : 'bg-red'}
                  ${i === 0
-                  ? styles['first-arrow']
-                  : i === states.length - 1
-                    ? styles['last-arrow']
-                    : styles['middle-arrow']
-                }`}>
+                    ? styles['first-arrow']
+                    : i === states.length - 1
+                      ? styles['last-arrow']
+                      : styles['middle-arrow']
+                  }`}>
                   <button
                     {...onClick}
                     className={`absolute top-[4px] bottom-[4px] left-[4px] right-[4px]
                     ${i === stage ? 'bg-red text-white' :
-                      i <= completedStages ? 'bg-white text-red' :
+                        i <= completedStages ? 'bg-white text-red' :
                           'bg-neutral-300 text-white'
                       } 
                         text-[0.5rem] sm:text-xs lg:text-base ${i === 0
@@ -125,7 +137,7 @@ export default function Header({
       </header>
 
       {next && (
-        <div className="w-screen h-screen fixed flex justify-end items-end pointer-events-none z-50">
+        <div className="w-screen h-screen fixed lg:flex justify-end items-end pointer-events-none z-50 hidden">
           <button
             onClick={() => setCurrentPage(next)}
             disabled={nextButtonDisabled}

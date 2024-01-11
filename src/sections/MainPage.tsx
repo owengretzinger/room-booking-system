@@ -8,7 +8,7 @@ interface MainPage {
 }
 
 const optionClasses =
-  'w-[90%] md:w-3/4 lg:w-1/2 text-center text-white rounded sm:text-lg md:text-xl lg:text-2xl py-1 md:py-2 lg:py-4';
+  'w-[90%] md:w-3/4 lg:w-1/2 text-center text-white rounded sm:text-lg md:text-xl lg:text-2xl py-2 lg:py-4';
 
 export default function MainPage({ setCurrentPage, bookedRooms, setBookedRooms }: MainPage) {
   // remove rooms that have been cancelled

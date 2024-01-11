@@ -11,7 +11,7 @@ import RoomsPage, { Building, Utility } from "../sections/RoomsPage";
 
 import { format } from "date-fns";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Room } from "@/components/RoomCard";
 
 export default function Home() {
@@ -59,6 +59,10 @@ export default function Home() {
     });
     setCompletedStages(0);
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   switch (currentPage) {
     case "main":
@@ -175,7 +179,7 @@ export default function Home() {
       <Header {...headerProps}></Header>
       <div className={`
         ${currentPage === "main" || currentPage === "done" || currentPage === "cancel" ? "" :
-          "pt-52 relative"}
+          "pt-40 md:pt-44 lg:pt-52 relative mx-2 pb-12 lg:pb-0"}
         `}>{renderedPage}</div>
     </>
   );
