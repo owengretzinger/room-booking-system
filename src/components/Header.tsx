@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import styles from "../styles/header.module.css";
+import { useEffect, useState } from 'react';
+import styles from '../styles/header.module.css';
 
 const stateConstructor = (
   state: string,
@@ -9,10 +9,10 @@ const stateConstructor = (
 };
 
 const states = [
-  stateConstructor("Select Date & Time", "datetime"),
-  stateConstructor("Select Filters", "filters"),
-  stateConstructor("Select Room", "rooms"),
-  stateConstructor("Confirm Booking", "confirm"),
+  stateConstructor('Select Date & Time', 'datetime'),
+  stateConstructor('Select Filters', 'filters'),
+  stateConstructor('Select Room', 'rooms'),
+  stateConstructor('Confirm Booking', 'confirm'),
 ];
 
 interface Header {
@@ -47,9 +47,9 @@ export default function Header({
   setCompletedStages,
 }: Header) {
   useEffect(() => {
-    if (stage !== undefined && stage > completedStages)
-      setCompletedStages(stage);
+    if (stage !== undefined && stage > completedStages) setCompletedStages(stage);
   }, [stage, completedStages, setCompletedStages]);
+
 
   return (
     <>
@@ -60,7 +60,7 @@ export default function Header({
             {back && (
               <button
                 onClick={() => {
-                  if (back === "main") reset();
+                  if (back === 'main') reset();
                   setCurrentPage(back);
                 }}
                 className="flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl  border-4 rounded-xl border-red h-10 md:h-12 lg:h-16 w-full"
@@ -73,9 +73,9 @@ export default function Header({
           <button
             onClick={() => {
               reset();
-              setCurrentPage("main");
+              setCurrentPage('main');
             }}
-            disabled={currentPage === "main"}
+            disabled={currentPage === 'main'}
             className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red flex-auto h-10 md:h-12 lg:h-16"
           >
             Room Booking System
@@ -87,9 +87,8 @@ export default function Header({
               <button
                 onClick={() => setCurrentPage(next)}
                 disabled={nextButtonDisabled}
-                className={`flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl rounded-xl h-10 md:h-12 lg:h-16 w-full text-white bg-yellow pointer-events-auto ${
-                  nextButtonDisabled ? "opacity-40 cursor-not-allowed" : ""
-                }`}
+                className={`flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl rounded-xl h-10 md:h-12 lg:h-16 w-full text-white bg-yellow pointer-events-auto ${nextButtonDisabled ? 'opacity-40 cursor-not-allowed' : ''
+                  }`}
               >
                 Next
               </button>
@@ -97,52 +96,44 @@ export default function Header({
           </div>
         </nav>
         {/* Navigation Bar */}
-        {stage !== undefined ? (
+        {stage !== undefined
+          ?
           <nav className="flex w-full lg:w-3/4 h-10 lg:h-16">
             {states.map(({ state, page }, i) => {
               const clickable = i <= completedStages && i !== stage;
-              const onClick = clickable
-                ? { onClick: () => setCurrentPage(page) }
-                : {};
+              const onClick = clickable ? { onClick: () => setCurrentPage(page) } : {};
               return (
-                <div
-                  key={i}
-                  className={`flex-auto w-24 box-border relative inline-block
-                ${i > completedStages ? "bg-neutral-300" : "bg-red"}
-                 ${
-                   i === 0
-                     ? styles["first-arrow"]
-                     : i === states.length - 1
-                     ? styles["last-arrow"]
-                     : styles["middle-arrow"]
-                 }`}
-                >
+                <div key={i} className={`flex-auto w-24 box-border relative inline-block
+                ${i > completedStages ? 'bg-neutral-300' : 'bg-red'}
+                 ${i === 0
+                    ? styles['first-arrow']
+                    : i === states.length - 1
+                      ? styles['last-arrow']
+                      : styles['middle-arrow']
+                  }`}>
                   <button
                     {...onClick}
                     className={`absolute top-[4px] bottom-[4px] left-[4px] right-[4px]
-                    ${
-                      i === stage
-                        ? "bg-red text-white"
-                        : i <= completedStages
-                        ? "bg-white text-red"
-                        : "bg-neutral-300 text-white"
-                    } 
-                        text-[0.5rem] sm:text-xs lg:text-base ${
-                          i === 0
-                            ? styles["inner-first-arrow"]
-                            : i === states.length - 1
-                            ? styles["inner-last-arrow"]
-                            : styles["inner-middle-arrow"]
-                        } flex items-center justify-center`}
+                    ${i === stage ? 'bg-red text-white' :
+                        i <= completedStages ? 'bg-white text-red' :
+                          'bg-neutral-300 text-white'
+                      } 
+                        text-[0.5rem] sm:text-xs lg:text-base ${i === 0
+                        ? styles['inner-first-arrow']
+                        : i === states.length - 1
+                          ? styles['inner-last-arrow']
+                          : styles['inner-middle-arrow']
+                      } flex items-center justify-center`}
                     disabled={!clickable}
                   >
                     {state}
                   </button>
                 </div>
               );
-            })}
+            })
+            }
           </nav>
-        ) : null}
+          : null}
       </header>
 
       {next && (
@@ -152,9 +143,8 @@ export default function Header({
             disabled={nextButtonDisabled}
             // make cursor change to x when disabled
 
-            className={`flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-yellow rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem] m-20 pointer-events-auto ${
-              nextButtonDisabled ? "opacity-40 cursor-not-allowed" : ""
-            }`}
+            className={`flex items-center justify-center text-[0.7rem] sm:text-base lg:text-xl text-white bg-yellow rounded-xl flex-1 h-10 md:h-12 lg:h-16 max-w-[12rem] min-w-[4rem] m-20 pointer-events-auto ${nextButtonDisabled ? 'opacity-40 cursor-not-allowed' : ''
+              }`}
           >
             Next
           </button>
