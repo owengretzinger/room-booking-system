@@ -31,6 +31,7 @@ export default function ConfirmPage({
   setBookedRooms,
 }: ConfirmPage) {
   const [email, setEmail] = useState<string[]>([]);
+  const [prototypeAcknowledged, setPrototypeAcknowledged] = useState<boolean>(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -120,13 +121,25 @@ export default function ConfirmPage({
             startTime={startTime}
             endTime={endTime}
           />
+          {/* Prototype disclaimer checkbox */}
+          <label className="flex items-start gap-3 mt-4 max-w-[600px]">
+            <input
+              type="checkbox"
+              className="mt-1 h-4 w-4"
+              checked={prototypeAcknowledged}
+              onChange={(e) => setPrototypeAcknowledged(e.target.checked)}
+            />
+            <span className="text-sm text-slate-600">
+              I understand that this is a prototype and does not actually work
+            </span>
+          </label>
           {/* Confirmation Button */}
           <button
-            disabled={!isLoggedIn}
-            className={`${isLoggedIn
+            disabled={!isLoggedIn || !prototypeAcknowledged}
+            className={`${isLoggedIn && prototypeAcknowledged
               ? ""
               : "opacity-40 cursor-not-allowed"
-              } ${!isLoggedIn ? "bg-red" : "bg-yellow"}
+              } ${(isLoggedIn && prototypeAcknowledged) ? "bg-yellow" : "bg-red"}
           text-white rounded-lg w-[350px] py-2 my-5`}
             onClick={() => {
               setCurrentPage("done");

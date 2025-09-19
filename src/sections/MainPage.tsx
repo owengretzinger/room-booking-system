@@ -30,6 +30,9 @@ export default function MainPage({ setCurrentPage, bookedRooms, setBookedRooms }
       >
         Cancel a Reservation
       </button>
+      <p className="mt-6 text-xs text-slate-600 text-center">
+        Built by <a href="https://owengretzinger.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-800">Owen Gretzinger</a> for Human Computer Interfaces
+      </p>
     </main>
   );
 }
