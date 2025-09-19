@@ -130,7 +130,7 @@ export default function ConfirmPage({
               onChange={(e) => setPrototypeAcknowledged(e.target.checked)}
             />
             <span className="text-sm text-slate-600">
-              I understand that this is a prototype and does not actually work
+              I understand that this is a non-official prototype and will not actually reserve this room for me
             </span>
           </label>
           {/* Confirmation Button */}
