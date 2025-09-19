@@ -11,7 +11,7 @@ const kanit = Kanit({
 
 export const metadata: Metadata = {
   title: "McMaster Room Booking",
-  description: "Book Study Rooms in McMaster",
+  description: "Book and manage study room reservations at McMaster University.",
 };
 
 export default function RootLayout({
