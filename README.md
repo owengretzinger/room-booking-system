@@ -8,7 +8,7 @@
 <h3 align="center">McMaster Room Booking System</h3>
 
   <p align="center">
-    A prototype for booking study rooms at McMaster University.
+    A prototype for booking study rooms at McMaster University. This is not the official McMaster University Room Booking System!
     <br />
      <a href="https://room-booking-system-blond.vercel.app">https://room-booking-system-blond.vercel.app</a>
   </p>
@@ -55,8 +55,8 @@ This project is a room booking system prototype developed using Next.js for the 
 - **Frontend:**
   - Next.js: A React framework for building performant web applications.
   - React: A JavaScript library for building user interfaces.
-  - react-day-picker:  A date picker component for selecting dates.
-  - react-icons:  A library of customizable icons.
+  - react-day-picker: A date picker component for selecting dates.
+  - react-icons: A library of customizable icons.
   - reactjs-popup: A simple popup component for React.
   - Tailwind CSS: A utility-first CSS framework for styling the application.
   - date-fns: A modern JavaScript date utility library.

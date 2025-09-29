@@ -78,7 +78,7 @@ export default function Header({
             disabled={currentPage === 'main'}
             className="flex items-center justify-center text-center text-sm md:text-2xl lg:text-4xl border-solid border-4 rounded-xl border-red flex-auto h-10 md:h-12 lg:h-16"
           >
-            McMaster Room Booking
+            Room Booking System
           </button>
 
           <div className="hidden lg:block flex-1 max-w-[12rem] min-w-[4rem]"></div>
